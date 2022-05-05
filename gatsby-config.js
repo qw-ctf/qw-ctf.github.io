@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: "/qtube",
   siteMetadata: {
     title: `QTube`,
     description: `QuakeWorld CTF Demo Archive`,
