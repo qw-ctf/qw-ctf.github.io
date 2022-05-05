@@ -264,11 +264,12 @@ class FteComponent extends React.Component {
 }
 
 const SecondPage = ({ pageContext: { demo, map } }) => {
-  const parts = window.location.hash.substring(1).split("&")
+  //const parts = window.location.hash.substring(1).split("&")
   let loop = null
   let initialSpeed = null
   let initialPlayer = null
   let initialPosition = null
+  /*
   for (let i = 0; i < parts.length; i++) {
     const kv = parts[i].split("=")
     if (kv.length != 2) continue
@@ -287,6 +288,7 @@ const SecondPage = ({ pageContext: { demo, map } }) => {
         break
     }
   }
+  */
 
   return (
     <Layout>

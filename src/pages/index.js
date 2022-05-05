@@ -90,7 +90,6 @@ const MatchesPage = () => {
   return (
     <Layout>
       <Seo title="QuakeWorld CTF Matches" />
-      {window.devicePixelRatio}
       {sorted.map(group => {
         const date = new Date(Date.parse(group.date))
         return (
