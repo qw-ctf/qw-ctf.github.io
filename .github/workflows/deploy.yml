@@ -25,6 +25,7 @@ jobs:
           fetch-depth: 1
           repository: qw-ctf/matchstats
           path: matchstats
+          lfs: true
 
       - name: Link stuff
         run: |
