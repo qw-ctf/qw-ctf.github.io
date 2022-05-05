@@ -26,6 +26,7 @@ jobs:
 
       - name: Link stuff
         run: |
+          find .
           ln -s matchstats/weeklies src/matches
           ln -s fragfile/fragfile.dat static/data/fragfile.dat
 
