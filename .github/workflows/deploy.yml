@@ -28,9 +28,8 @@ jobs:
 
       - name: Link stuff
         run: |
-          find . -not -wholename '*.git*'
           ln -s matchstats/weeklies src/matches
-          ln -s fragfile/fragfile.dat static/data/fragfile.dat
+#         ln -s fragfile/fragfile.dat static/data/fragfile.dat
 
       - name: Deploy QTube
         uses: enriikke/gatsby-gh-pages-action@v2
