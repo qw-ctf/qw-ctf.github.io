@@ -12,12 +12,12 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Checkout Fragfile
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
-          repository: qw-ctf/fragfile
-          path: fragfile
+      # - name: Checkout Fragfile
+      #   uses: actions/checkout@v3
+      #   with:
+      #     fetch-depth: 1
+      #     repository: qw-ctf/fragfile
+      #     path: fragfile
 
       - name: Checkout Matchstats
         uses: actions/checkout@v3
