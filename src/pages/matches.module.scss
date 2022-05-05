@@ -1,0 +1,92 @@
+$borderColor: #777;
+
+.dateHeader {
+  font-size: 3em;
+  font-weight: bolder;
+}
+
+.matchListing {
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fit, 400px);
+  grid-auto-rows: minmax(150px);
+  grid-auto-flow: dense;
+}
+
+.container {
+  display: grid;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.mapContainer {
+  grid-area: 1/1;
+  background-color: $borderColor;
+}
+
+.mapImage {
+  border: 1px solid $borderColor;
+}
+
+.infoContainer {
+  grid-area: 1/1;
+  position: relative;
+  place-items: end;
+  display: grid;
+  color: #fff;
+  font-weight: bolder;
+  text-shadow: 1px 1px 2px #000, 0 0 2px #555, 0 0 2px #555;
+}
+
+.infoGrid {
+  width: 100%;
+  display: grid;
+  backdrop-filter: blur(2px);
+  grid-template-areas: "map numPlayers redTeam redScore" "map numPlayers blueTeam blueScore";
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+
+  border-left: 1px solid $borderColor;
+  border-right: 1px solid $borderColor;
+  border-bottom: 1px solid $borderColor;
+
+  &Red {
+    @extend .infoGrid;
+    background-color: #ff777766;
+  }
+
+  &Blue {
+    @extend .infoGrid;
+    background-color: #7777ff66;
+  }
+}
+
+.infoMap {
+  grid-area: map;
+  align-self: center;
+  font-size: 3em;
+  margin-bottom: 0.0em;
+  margin-left: 0.1em;
+}
+
+.infoNumPlayers {
+  grid-area: numPlayers;
+  align-self: end;
+}
+
+.infoTeamRed {
+  grid-area: redTeam;
+  justify-self: right;
+}
+
+.infoRedFrags {
+  grid-area: redScore;
+}
+
+.infoTeamBlue {
+  grid-area: blueTeam;
+  justify-self: right;
+}
+
+.infoBlueFrags {
+  grid-area: blueScore;
+}
