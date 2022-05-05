@@ -28,7 +28,7 @@ jobs:
 
       - name: Link stuff
         run: |
-          ln -s matchstats/weeklies src/matches
+          ln -s `pwd`/matchstats/weeklies src/matches
 #         ln -s fragfile/fragfile.dat static/data/fragfile.dat
 
       - name: Deploy QTube
