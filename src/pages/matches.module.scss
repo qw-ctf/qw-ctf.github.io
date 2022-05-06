@@ -11,6 +11,8 @@ $borderColor: #777;
   grid-template-columns: repeat(auto-fit, 400px);
   grid-auto-rows: minmax(150px);
   grid-auto-flow: dense;
+  margin-top: 1em;
+  margin-bottom: 6em;
 }
 
 .container {

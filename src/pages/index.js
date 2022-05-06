@@ -1,5 +1,4 @@
 import * as React from "react"
-import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -105,7 +104,7 @@ const MatchesPage = () => {
             <br />
             <div className={matchStyle.matchListing}>
               {group.edges
-                .sort((a, b) => a.node.fields.sort_date - b.node.fields.sort_date)
+                .sort((a, b) => Date.parse(a.node.date) - Date.parse(b.node.date))
                 .map(edge => {
                   const mapImages = maps[edge.node.map] || maps["e2m2"] // TODO: Add more screenshots
                   const index = new Date(edge.node.date).getMinutes() % mapImages.length

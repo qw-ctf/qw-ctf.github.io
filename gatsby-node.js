@@ -8,16 +8,6 @@ exports.onCreateWebpackConfig = ({ actions }) => {
   })
 }
 
-exports.createPages = async ({ actions }) => {
-  const { createPage } = actions
-  createPage({
-    path: "/using-dsg",
-    component: require.resolve("./src/templates/using-dsg.js"),
-    context: {},
-    defer: true,
-  })
-}
-
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions
 
@@ -44,9 +34,6 @@ exports.onCreateNode = ({ node, actions }) => {
     const epoch = Date.parse(node.date)
 
     createNodeField({ node, name: "slug", value: slug })
-    createNodeField({ node, name: "year", value: year })
-    createNodeField({ node, name: "month", value: month })
-    createNodeField({ node, name: "day", value: day })
     createNodeField({ node, name: "date", value: year_month_day })
     createNodeField({
       node,
@@ -59,7 +46,7 @@ exports.onCreateNode = ({ node, actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
-  const blogPostTemplate = path.resolve(`src/pages/match.js`)
+  const matchTemplate = path.resolve(`src/pages/match.js`)
   const result = await graphql(`
     query MyQuery {
       allMatchesJson {
@@ -78,7 +65,7 @@ exports.createPages = async ({ graphql, actions }) => {
   result.data.allMatchesJson.edges.forEach(edge => {
     createPage({
       path: `${edge.node.fields.slug}`,
-      component: blogPostTemplate,
+      component: matchTemplate,
       context: {
         demo: edge.node.demo,
         map: edge.node.map,
