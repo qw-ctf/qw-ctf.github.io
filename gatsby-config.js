@@ -6,7 +6,6 @@ module.exports = {
     siteUrl: `https://qw-ctf.github.io/qtube/`,
   },
   plugins: [
-	`gatsby-plugin-minify`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
