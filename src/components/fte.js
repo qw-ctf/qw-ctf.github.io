@@ -33,6 +33,10 @@ class FteComponent extends React.Component {
 
   componentDidMount() {
     const baseUrl = "https://media.githubusercontent.com/media/qw-ctf/matches/main/weeklies/"
+    const targetMapBsp = "id1/maps/" + this.props.map + ".bsp"
+    const targetMapLit = "id1/maps/" + this.props.map + ".lit"
+    const sourceMapBsp = withPrefix("/data/id1/maps/" + this.props.map + ".bsp")
+    const sourceMapLit = withPrefix("/data/id1/maps/" + this.props.map + ".lit")
     window.Module = {
       canvas: this.canvasRef.current,
       files: {
@@ -46,15 +50,8 @@ class FteComponent extends React.Component {
         "id1/sound.pk3": withPrefix("/data/id1/sound.pk3"),
         "id1/textures.pk3": withPrefix("/data/id1/textures.pk3"),
         "id1/plaguespack_fte.pk3": withPrefix("/data/id1/plaguespack_fte.pk3"),
-        "id1/maps/ctf2m1.bsp": withPrefix("/data/id1/maps/ctf2m1.bsp"),
-        "id1/maps/ctf2m1.lit": withPrefix("/data/id1/maps/ctf2m1.lit"),
-        "id1/maps/ctf8.bsp": withPrefix("/data/id1/maps/ctf8.bsp"),
-        "id1/maps/ctf8.lit": withPrefix("/data/id1/maps/ctf8.lit"),
-        "id1/maps/ctf5.bsp": withPrefix("/data/id1/maps/ctf5.bsp"),
-        "id1/maps/ctf5.lit": withPrefix("/data/id1/maps/ctf5.lit"),
-        "id1/maps/e2m2.bsp": withPrefix("/data/id1/maps/e2m2.bsp"),
-        "id1/maps/e1m1.bsp": withPrefix("/data/id1/maps/e1m1.bsp"),
-        "id1/maps/e1m1.lit": withPrefix("/data/id1/maps/e1m1.lit"),
+        [targetMapBsp]: withPrefix(sourceMapBsp),
+        [targetMapLit]: withPrefix(sourceMapLit),
         "id1/maps/pound.bsp": withPrefix("/data/id1/maps/pound.bsp"),
         "id1/maps/softbox.bsp": withPrefix("/data/id1/maps/softbox.bsp"),
         "id1/textures/#04water1.png": withPrefix("/data/tex/water.png"),

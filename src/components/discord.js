@@ -8,7 +8,7 @@ const DiscordButton = () => {
   return (
     <div className={discordStyle.discordButton}>
       <a href="https://discord.gg/Y39QWy8W" target="_blank">
-        <div class="icon">
+        <div className={discordStyle.icon}>
           <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 240">
             <path
               class="st0"
