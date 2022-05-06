@@ -67,6 +67,7 @@ class FteComponent extends React.Component {
         "id1/textures/wizmet1_6.png": withPrefix("/data/tex/wizmet1_6.png"),
         "id1/textures/wswamp1_2.png": withPrefix("/data/tex/wswamp1_2.png"),
         "id1/textures/wwood1_5.png": withPrefix("/data/tex/wwood1_5.png"),
+        "id1/textures/*teleport.png": withPrefix("/data/tex/teleport.png"),
         "id1/gfx/ranking.png": withPrefix("/data/tex/ranking.png"),
         "qw/fragfile.dat": withPrefix("/data/fragfile.dat"),
         "qw/match.mvd.gz": `${baseUrl}${encodeURIComponent(this.props.demo)}.gz`,
