@@ -1,8 +1,7 @@
-import screenfull from 'screenfull'
 import * as React from "react"
 import { withPrefix } from "gatsby"
 import * as playerStyle from "./fte.module.scss"
-
+import screenfull from "./screenfull"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlay, faPause, faVolumeLow, faVolumeHigh, faVolumeXmark, faVolumeOff, faExpand } from "@fortawesome/free-solid-svg-icons"
 
@@ -163,7 +162,7 @@ class FteComponent extends React.Component {
   }
 
   onResize() {
-    const conWidth = this.playerRef.current.clientWidth * window.devicePixelRatio / 3
+    const conWidth = (this.playerRef.current.clientWidth / 4) * window.devicePixelRatio
     window.onresize()
     window.Module.execute("vid_conwidth " + conWidth.toString())
   }

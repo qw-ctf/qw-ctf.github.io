@@ -8,6 +8,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
+    "browser-monads": "^1.0.0",
     "gatsby": "^4.12.1",
     "gatsby-image": "^3.11.0",
     "gatsby-plugin-fontawesome-css": "^1.2.0",
@@ -23,8 +24,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
-    "sass": "^1.51.0",
-    "screenfull": "^6.0.1"
+    "sass": "^1.51.0"
   },
   "devDependencies": {
     "prettier": "^2.6.2"
