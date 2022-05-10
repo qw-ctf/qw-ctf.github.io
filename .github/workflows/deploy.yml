@@ -12,6 +12,15 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Cache node_modules resources
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+        restore-keys: |
+          npm-${{ hashFiles('package-lock.json') }}
+          npm-
+
       # - name: Checkout Fragfile
       #   uses: actions/checkout@v3
       #   with:
