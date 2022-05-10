@@ -1,3 +1,4 @@
+import screenfull from 'screenfull'
 import * as React from "react"
 import { withPrefix } from "gatsby"
 import * as playerStyle from "./fte.module.scss"
@@ -79,11 +80,7 @@ class FteComponent extends React.Component {
 
     document.head.appendChild(fteScript)
 
-    document.onfullscreenchange = e => {
-      const conWidth = (this.playerRef.current.clientWidth / 4) * window.devicePixelRatio
-      window.onresize()
-      window.Module.execute("vid_conwidth " + conWidth.toString())
-    }
+    screenfull.on("change", this.onResize.bind(this))
 
     const parts = window.location.hash.substring(1).split("&")
     for (let i = 0; i < parts.length; i++) {
@@ -116,6 +113,8 @@ class FteComponent extends React.Component {
       this.setState({ playerControlTimeout: 0 })
     }
     if (this.state.firstRefresh && this.state.gametime > 0) {
+      this.onResize()
+
       if (this.state.initialPlayer) {
         window.Module.execute("cl_autotrack off")
         window.Module.execute("autotrack off")
@@ -163,14 +162,17 @@ class FteComponent extends React.Component {
     }
   }
 
+  onResize() {
+    const conWidth = this.playerRef.current.clientWidth * window.devicePixelRatio / 3
+    window.onresize()
+    window.Module.execute("vid_conwidth " + conWidth.toString())
+  }
+
   toggleFullscreen() {
-    if (document.fullscreenElement) {
-      document.exitFullscreen()
+    if (screenfull.isFullscreen) {
+      screenfull.exit()
     } else {
-      document.fullscreenElement = this.playerRef.current
-      this.playerRef.current.width = window.screen.width / window.devicePixelRatio
-      this.playerRef.current.height = window.screen.height / window.devicePixelRatio
-      this.playerRef.current.requestFullscreen()
+      screenfull.request(this.playerRef.current)
       window.onresize()
     }
   }
