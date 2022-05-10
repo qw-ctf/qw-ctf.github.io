@@ -17,9 +17,9 @@ jobs:
         with:
           path: |
             node_modules
-        restore-keys: |
-          npm-${{ hashFiles('package-lock.json') }}
-          npm-
+          restore-keys: |
+            npm-${{ hashFiles('package-lock.json') }}
+            npm-
 
       # - name: Checkout Fragfile
       #   uses: actions/checkout@v3
