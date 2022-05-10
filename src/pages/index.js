@@ -65,7 +65,7 @@ const MatchesPage = () => {
         edges {
           node {
             childImageSharp {
-              gatsbyImageData(width: 500)
+              gatsbyImageData(width: 500, formats: PNG)
             }
             name
           }
