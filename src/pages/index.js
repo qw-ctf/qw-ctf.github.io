@@ -43,6 +43,7 @@ const MatchesPage = () => {
               fields {
                 slug
                 sort_date
+                epoch
                 team {
                   red {
                     frags
@@ -74,7 +75,6 @@ const MatchesPage = () => {
   `)
 
   const maps = {}
-  console.log(data.maps);
   for (let i = 0; i < data.maps.edges.length; i++) {
     
     const mapName = data.maps.edges[i].node.name.split(".")[0]
@@ -104,10 +104,10 @@ const MatchesPage = () => {
             <br />
             <div className={matchStyle.matchListing}>
               {group.edges
-                .sort((a, b) => Date.parse(a.node.date) - Date.parse(b.node.date))
+                .sort((a, b) => a.node.fields.epoch - b.node.fields.epoch)
                 .map(edge => {
                   const mapImages = maps[edge.node.map] || maps["e2m2"] // TODO: Add more screenshots
-                  const index = new Date(edge.node.date).getMinutes() % mapImages.length
+                  const index = (edge.node.fields.epoch / 60).toFixed() % mapImages.length
 
                   return Match({
                     slug: edge.node.fields.slug,

@@ -35,6 +35,7 @@ exports.onCreateNode = ({ node, actions }) => {
 
     createNodeField({ node, name: "slug", value: slug })
     createNodeField({ node, name: "date", value: year_month_day })
+    createNodeField({ node, name: "epoch", value: epoch / 1000 })
     createNodeField({
       node,
       name: "sort_date",
