@@ -90,7 +90,7 @@ const MatchesPage = () => {
     <Layout>
       <Seo title="QuakeWorld CTF Matches" />
       {sorted.map(group => {
-        const date = new Date(Date.parse(group.date))
+        const date = new Date(group.date[0])
         return (
           <div>
             <span className={matchStyle.dateHeader}>

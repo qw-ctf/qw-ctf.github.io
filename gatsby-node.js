@@ -15,11 +15,10 @@ exports.onCreateNode = ({ node, actions }) => {
     const slug = node.demo.replace(".mvd", "").replaceAll(/[^A-Za-z0-9]/g, "-")
 
     const date = new Date(node.date)
-
-    const year = date.getFullYear()
-    const month = date.getMonth() + 1
-    const day = date.getDate()
-    const year_month_day = `${year}-${month}-${day}`
+    date.setHours(0)
+    date.setMinutes(0)
+    date.setSeconds(0)
+    date.setMilliseconds(0)
 
     const team_scores = {
       red: { frags: 0, players: 0 },
@@ -34,7 +33,7 @@ exports.onCreateNode = ({ node, actions }) => {
     const epoch = Date.parse(node.date)
 
     createNodeField({ node, name: "slug", value: slug })
-    createNodeField({ node, name: "date", value: year_month_day })
+    createNodeField({ node, name: "date", value: date })
     createNodeField({ node, name: "epoch", value: epoch / 1000 })
     createNodeField({
       node,
