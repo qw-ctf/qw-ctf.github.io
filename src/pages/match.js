@@ -3,6 +3,8 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import FteComponent from "../components/fte"
 import DiscordButton from "../components/discord"
+import browser from "browser-detect"
+
 
 const MatchPage = ({ pageContext: { demo, map } }) => {
   return (
