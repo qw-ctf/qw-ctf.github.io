@@ -50,6 +50,7 @@ class FteComponent extends React.Component {
         "id1/sound.pk3": withPrefix("/data/id1/sound.pk3"),
         "id1/textures.pk3": withPrefix("/data/id1/textures.pk3"),
         "id1/plaguespack_fte.pk3": withPrefix("/data/id1/plaguespack_fte.pk3"),
+        "id1/tracker.pk3": withPrefix("/data/id1/tracker.pk3"),
         [targetMapBsp]: withPrefix(sourceMapBsp),
         [targetMapLit]: withPrefix(sourceMapLit),
         "id1/textures/#04water1.png": withPrefix("/data/tex/water.png"),
