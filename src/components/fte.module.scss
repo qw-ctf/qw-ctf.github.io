@@ -1,3 +1,5 @@
+@import "../style/breakpoints.scss";
+
 .emscripten {
   padding-right: 0;
   margin-left: auto;
@@ -21,13 +23,21 @@ canvas.emscripten {
 }
 
 .videoPlayer {
-  width: 1280px;
-  height: 720px;
+  width: 100%;
+  aspect-ratio: 16/9;
   position: relative;
   overflow: hidden;
   background: black;
   margin: 0px;
   padding: 0px;
+
+  @include lg {
+    width: 80%;
+  }
+
+  @include xl {
+    width: 60%;
+  }
 }
 
 .playerControls {

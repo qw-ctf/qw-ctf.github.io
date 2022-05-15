@@ -1,3 +1,5 @@
+@import "../style/breakpoints.scss";
+
 $borderColor: #777;
 
 .dateHeader {
@@ -8,11 +10,15 @@ $borderColor: #777;
 .matchListing {
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: repeat(auto-fit, 400px);
+  grid-template-columns: repeat(auto-fit, 340px);
   grid-auto-rows: minmax(150px);
   grid-auto-flow: dense;
   margin-top: 1em;
   margin-bottom: 6em;
+
+  @include lg {
+    grid-template-columns: repeat(auto-fit, 400px);
+  }
 }
 
 .container {
@@ -44,7 +50,7 @@ $borderColor: #777;
   display: grid;
   backdrop-filter: blur(2px);
   grid-template-areas: "map numPlayers redTeam redScore" "map numPlayers blueTeam blueScore";
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 4fr 4fr 1fr;
   grid-template-rows: 1fr 1fr;
 
   border-left: 1px solid $borderColor;
@@ -64,15 +70,17 @@ $borderColor: #777;
 
 .infoMap {
   grid-area: map;
-  align-self: center;
-  font-size: 3em;
-  margin-bottom: 0.0em;
+  font-size: 2.5em;
   margin-left: 0.1em;
+  margin-top: auto;
+  margin-bottom: 0.2em;
+  letter-spacing: -2px;
 }
 
 .infoNumPlayers {
   grid-area: numPlayers;
-  align-self: end;
+  margin-top: auto;
+  margin-bottom: -0.05em;
 }
 
 .infoTeamRed {
@@ -82,6 +90,8 @@ $borderColor: #777;
 
 .infoRedFrags {
   grid-area: redScore;
+  min-width: 2.5em;
+  margin-left: 0.1em;
 }
 
 .infoTeamBlue {
@@ -91,4 +101,6 @@ $borderColor: #777;
 
 .infoBlueFrags {
   grid-area: blueScore;
+  min-width: 2.5em;
+  margin-left: 0.1em;
 }
