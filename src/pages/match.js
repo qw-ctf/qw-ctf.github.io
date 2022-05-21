@@ -15,11 +15,11 @@ function iOS() {
   )
 }
 
-const MatchPage = ({ pageContext: { demo, map, directory } }) => {
+const MatchPage = ({ pageContext: { demo, map, directory, duration } }) => {
   return (
     <Layout>
       <Seo title="demo" />
-      {iOS() ? "iOS browser performance is really bad, please fix, or use Desktop or Android" : <FteComponent demo={demo} map={map} directory={directory}/>}
+      {iOS() ? "iOS browser performance is really bad, please fix, or use Desktop or Android" : <FteComponent demo={demo} map={map} directory={directory} duration={duration}/>}
       <DiscordButton />
     </Layout>
   )

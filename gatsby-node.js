@@ -76,6 +76,7 @@ exports.createPages = async ({ graphql, actions }) => {
         demo: edge.node.demo,
         map: edge.node.map,
         directory: edge.node.parent.directory,
+        duration: edge.node.duration,
       },
     })
   })

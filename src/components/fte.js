@@ -5,6 +5,18 @@ import screenfull from "./screenfull"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlay, faPause, faVolumeLow, faVolumeHigh, faVolumeXmark, faVolumeOff, faExpand } from "@fortawesome/free-solid-svg-icons"
 
+function secondsToString(duration) {
+  const durationMinutes = Math.floor(duration / 60).toLocaleString("en-US", {
+    minimumIntegerDigits: 2,
+    useGrouping: false,
+  })
+  const durationSeconds = Math.floor(duration % 60).toLocaleString("en-US", {
+    minimumIntegerDigits: 2,
+    useGrouping: false,
+  })
+  return `${durationMinutes}:${durationSeconds}`
+}
+
 class FteComponent extends React.Component {
   state = {
     demo: null,
@@ -29,6 +41,8 @@ class FteComponent extends React.Component {
     this.playerRef = React.createRef()
     this.playing = true
     this.playbackSpeed = 100
+
+    this.duration = secondsToString(this.props.duration)
   }
 
   componentDidMount() {
@@ -219,21 +233,14 @@ class FteComponent extends React.Component {
   }
 
   onDemoSeek(event) {
-    const offset = Math.floor((event.clientX / event.target.offsetParent.offsetWidth) * (600 + 10))
+    const offset = Math.floor((event.clientX / event.target.offsetParent.offsetWidth) * (this.props.duration + 10))
     console.log(offset, event.clientX, event.target.offsetWidth, event)
     window.Module.execute("demo_jump " + offset)
   }
 
   render() {
-    const gametimeMinutes = Math.floor(this.state.gametime / 60).toLocaleString("en-US", {
-      minimumIntegerDigits: 2,
-      useGrouping: false,
-    })
-    const gametimeSeconds = Math.floor(this.state.gametime % 60).toLocaleString("en-US", {
-      minimumIntegerDigits: 2,
-      useGrouping: false,
-    })
-    const gametimeProgress = ((this.state.gametime / 600.0) * 100.0).toString() + "%"
+    const gametime = secondsToString(this.state.gametime)
+    const gametimeProgress = ((this.state.gametime / this.props.duration) * 100.0).toString() + "%"
     return (
       <div
         ref={this.playerRef}
@@ -275,7 +282,7 @@ class FteComponent extends React.Component {
           />
           <div className={playerStyle.time}>
             <span id="demotime">
-              {gametimeMinutes}:{gametimeSeconds} / 10:00
+              {gametime} / {this.duration}
             </span>
           </div>
           <button className={playerStyle.fullscreenButton} onClick={this.toggleFullscreen.bind(this)} style={{ color: "white" }}>
