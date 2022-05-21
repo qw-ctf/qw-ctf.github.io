@@ -11,7 +11,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions
 
-  if (node.internal.type === "MatchesJson") {
+  if (node.internal.type === "MatchJson") {
     const slug = node.demo.replace(".mvd", "").replaceAll(/[^A-Za-z0-9]/g, "-")
 
     const date = new Date(node.date)
@@ -48,27 +48,34 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const matchTemplate = path.resolve(`src/pages/match.js`)
   const result = await graphql(`
-    query MyQuery {
-      allMatchesJson {
+    query Pages {
+      pages: allMatchJson {
         edges {
           node {
             demo
             map
+            duration
             fields {
               slug
+            }
+            parent {
+              ... on File {
+                directory: relativeDirectory
+              }
             }
           }
         }
       }
     }
   `)
-  result.data.allMatchesJson.edges.forEach(edge => {
+  result.data.pages.edges.forEach(edge => {
     createPage({
-      path: `${edge.node.fields.slug}`,
+      path: `match/${edge.node.parent.directory}/${edge.node.fields.slug}`,
       component: matchTemplate,
       context: {
         demo: edge.node.demo,
         map: edge.node.map,
+        directory: edge.node.parent.directory,
       },
     })
   })

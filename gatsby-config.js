@@ -18,7 +18,12 @@ module.exports = {
       }
     },
     `gatsby-transformer-sharp`,
-    `gatsby-transformer-json`,
+    {
+      resolve: `gatsby-transformer-json`,
+      options: {
+        typeName: ({ node, object, isArray }) => "MatchJson"
+      }
+    },
     `gatsby-plugin-fontawesome-css`,
     {
       resolve: `gatsby-source-filesystem`,

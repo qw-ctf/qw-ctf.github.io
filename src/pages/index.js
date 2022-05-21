@@ -6,9 +6,9 @@ import { useStaticQuery, graphql } from "gatsby"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import * as matchStyle from "./matches.module.scss"
 
-const Match = ({ slug, image, team, map }) => {
+const Match = ({ slug, image, team, map, directory }) => {
   return (
-    <a key={slug} href={slug}>
+    <a key={slug} href={"match/" + directory + "/" + slug}>
       <div className={matchStyle.container}>
         <GatsbyImage className={matchStyle.mapContainer} imgClassName={matchStyle.mapImage} image={image} objectFit="scale" alt="" />
         <div className={matchStyle.infoContainer}>
@@ -31,7 +31,7 @@ const Match = ({ slug, image, team, map }) => {
 const MatchesPage = () => {
   const data = useStaticQuery(graphql`
     query MyQuery {
-      matches: allMatchesJson {
+      matches: allMatchJson {
         group(field: fields___sort_date) {
           date: distinct(field: fields___date)
           edges {
@@ -56,11 +56,15 @@ const MatchesPage = () => {
                 }
               }
               duration
+              parent {
+                ... on File {
+                  directory: relativeDirectory
+                }
+              }
             }
           }
         }
       }
-
       maps: allFile(filter: { dir: { regex: "//maps//" } }) {
         edges {
           node {
@@ -76,7 +80,6 @@ const MatchesPage = () => {
 
   const maps = {}
   for (let i = 0; i < data.maps.edges.length; i++) {
-    
     const mapName = data.maps.edges[i].node.name.split(".")[0]
     if (!maps[mapName]) maps[mapName] = []
     maps[mapName].push(data.maps.edges[i].node.childImageSharp)
@@ -114,6 +117,7 @@ const MatchesPage = () => {
                     team: edge.node.fields.team,
                     map: edge.node.map,
                     image: getImage(mapImages[index]),
+                    directory: edge.node.parent.directory
                   })
                 })}
             </div>

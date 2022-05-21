@@ -32,11 +32,12 @@ class FteComponent extends React.Component {
   }
 
   componentDidMount() {
-    const baseUrl = "https://media.githubusercontent.com/media/qw-ctf/matches/main/weeklies/"
+    const baseUrl = "https://media.githubusercontent.com/media/qw-ctf/matches/main/"
     const targetMapBsp = "id1/maps/" + this.props.map + ".bsp"
     const targetMapLit = "id1/maps/" + this.props.map + ".lit"
     const sourceMapBsp = withPrefix("/data/id1/maps/" + this.props.map + ".bsp")
     const sourceMapLit = withPrefix("/data/id1/maps/" + this.props.map + ".lit")
+    const demoUrl = `${baseUrl}${this.props.directory}/${encodeURIComponent(this.props.demo)}.gz`
     window.Module = {
       canvas: this.canvasRef.current,
       files: {
@@ -71,7 +72,7 @@ class FteComponent extends React.Component {
         "id1/textures/*teleport.png": withPrefix("/data/tex/teleport.png"),
         "id1/gfx/ranking.png": withPrefix("/data/tex/ranking.png"),
         "qw/fragfile.dat": withPrefix("/data/fragfile.dat"),
-        "qw/match.mvd.gz": `${baseUrl}${encodeURIComponent(this.props.demo)}.gz`,
+        "qw/match.mvd.gz": demoUrl,
       },
     }
 
