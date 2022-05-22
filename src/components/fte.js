@@ -3,7 +3,7 @@ import { withPrefix } from "gatsby"
 import * as playerStyle from "./fte.module.scss"
 import screenfull from "./screenfull"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faPlay, faPause, faVolumeLow, faVolumeHigh, faVolumeXmark, faVolumeOff, faExpand } from "@fortawesome/free-solid-svg-icons"
+import { faPlay, faPause, faVolumeLow, faVolumeHigh, faVolumeXmark, faVolumeOff, faExpand, faGauge } from "@fortawesome/free-solid-svg-icons"
 
 function secondsToString(duration) {
   const durationMinutes = Math.floor(duration / 60).toLocaleString("en-US", {
@@ -17,6 +17,8 @@ function secondsToString(duration) {
   return `${durationMinutes}:${durationSeconds}`
 }
 
+const easingTime = 1500.0
+
 class FteComponent extends React.Component {
   state = {
     demo: null,
@@ -24,6 +26,8 @@ class FteComponent extends React.Component {
     gametime: 0,
     playing: true,
     playbackSpeed: 100,
+    targetSpeed: 100,
+    targetSpeedArrivalTime: 100,
     volume: Math.sqrt(0.05),
     volumeMuted: false,
     volumeHover: false,
@@ -148,6 +152,27 @@ class FteComponent extends React.Component {
       window.Module.execute("demo_jump " + this.state.initialPosition)
     }
 
+    if (this.state.playbackSpeed != 0 && this.state.playbackSpeed != this.state.targetSpeed) {
+      const now = performance.now()
+      if (now >= this.state.targetSpeedArrivalTime) {
+        window.Module.execute("demo_setspeed " + this.state.targetSpeed)
+        this.setState({ playbackSpeed: this.state.targetSpeed })
+      } else {
+        const progress = (this.state.targetSpeedArrivalTime - now) / easingTime
+        const easing = 1 - progress * (2 - progress)
+        if (this.state.playbackSpeed > this.state.targetSpeed) {
+          const speed = this.state.playbackSpeed - (this.state.playbackSpeed - this.state.targetSpeed * 1.0) * easing
+          window.Module.execute("demo_setspeed " + speed)
+          this.setState({ playbackSpeed: speed })
+        } else {
+          const speed = this.state.playbackSpeed + (this.state.targetSpeed - this.state.playbackSpeed * 1.0) * easing
+          window.Module.execute("demo_setspeed " + speed)
+          this.setState({ playbackSpeed: speed })
+        }
+      }
+      const time = 2000 / performance.now()
+    }
+
     // This is a hack, seeking causes player to switch
     if (this.state.gametime > 0 && this.state.initialPlayer) {
       window.Module.execute("track " + this.state.initialPlayer) // cmd: users for userId
@@ -238,6 +263,16 @@ class FteComponent extends React.Component {
     window.Module.execute("demo_jump " + offset)
   }
 
+  toggleSlowMotion(event) {
+    if (!this.state.playbackSpeed == 0) {
+      if (this.state.targetSpeed == 100) {
+        this.setState({ targetSpeed: 20, targetSpeedArrivalTime: event.timeStamp + easingTime })
+      } else {
+        this.setState({ targetSpeed: 100, targetSpeedArrivalTime: event.timeStamp + easingTime })
+      }
+    }
+  }
+
   render() {
     const gametime = secondsToString(this.state.gametime)
     const gametimeProgress = ((this.state.gametime / this.props.duration) * 100.0).toString() + "%"
@@ -285,6 +320,9 @@ class FteComponent extends React.Component {
               {gametime} / {this.duration}
             </span>
           </div>
+          <button className={playerStyle.speedButton} onClick={this.toggleSlowMotion.bind(this)} style={{ color: "white" }}>
+            <FontAwesomeIcon icon={faGauge} />
+          </button>
           <button className={playerStyle.fullscreenButton} onClick={this.toggleFullscreen.bind(this)} style={{ color: "white" }}>
             <FontAwesomeIcon icon={faExpand} />
           </button>

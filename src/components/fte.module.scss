@@ -82,12 +82,18 @@ canvas.emscripten {
   outline: none;
 }
 
-
 .fullscreenButton {
-  width: 3em;
+  max-width: 3em;
   border: none;
   padding: 10px;
-  margin-left: auto;
+  margin-left: 0px;
+}
+
+.speedButton {
+  max-width: 3em;
+  border: none;
+  padding: 10px;
+  margin-left: 0px;
 }
 
 .volumeButton {
@@ -108,7 +114,7 @@ canvas.emscripten {
 .time {
   font-size: 1em;
   color: white;
-  width: 15%;
+  max-width: 100%;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
