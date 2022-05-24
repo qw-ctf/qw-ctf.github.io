@@ -56,6 +56,11 @@ class FteComponent extends React.Component {
     const sourceMapBsp = withPrefix("/data/id1/maps/" + this.props.map + ".bsp")
     const sourceMapLit = withPrefix("/data/id1/maps/" + this.props.map + ".lit")
     const demoUrl = `${baseUrl}${this.props.directory}/${encodeURIComponent(this.props.demo)}.gz`
+
+    const episodeFlatTex = /(dm[1-7]|e[1-4]m[1-8])/.test(this.props.map) ? {
+      "qw/flat.pk3": withPrefix("/data/id1/flat.pk3"),
+    } : {}
+
     window.Module = {
       canvas: this.canvasRef.current,
       files: {
@@ -70,25 +75,11 @@ class FteComponent extends React.Component {
         "id1/textures.pk3": withPrefix("/data/id1/textures.pk3"),
         "id1/plaguespack_fte.pk3": withPrefix("/data/id1/plaguespack_fte.pk3"),
         "id1/tracker.pk3": withPrefix("/data/id1/tracker.pk3"),
-        "qw/flat.pk3": withPrefix("/data/id1/flat.pk3"),
         [targetMapBsp]: withPrefix(sourceMapBsp),
         [targetMapLit]: withPrefix(sourceMapLit),
         "id1/textures/#04water1.png": withPrefix("/data/tex/water.png"),
-        "id1/textures/rock4_2.png": withPrefix("/data/tex/rock4_2.png"),
-        "id1/textures/sky1.png": withPrefix("/data/tex/sky1.png"),
-        "id1/textures/sky4.png": withPrefix("/data/tex/sky4.png"),
-        "id1/textures/wall14_5.png": withPrefix("/data/tex/wall14_5.png"),
-        "id1/textures/#water0.png": withPrefix("/data/tex/#water1.png"),
-        "id1/textures/#water1.png": withPrefix("/data/tex/#water1.png"),
-        "id1/textures/#water2p.png": withPrefix("/data/tex/#water1.png"),
-        "id1/textures/wbrick1_5.png": withPrefix("/data/tex/wbrick1_5.png"),
-        "id1/textures/wexit01.png": withPrefix("/data/tex/wexit01.png"),
-        "id1/textures/wgrnd1_6.png": withPrefix("/data/tex/wgrnd1_6.png"),
-        "id1/textures/wiz1_4.png": withPrefix("/data/tex/wiz1_4.png"),
-        "id1/textures/wizmet1_6.png": withPrefix("/data/tex/wizmet1_6.png"),
-        "id1/textures/wswamp1_2.png": withPrefix("/data/tex/wswamp1_2.png"),
-        "id1/textures/wwood1_5.png": withPrefix("/data/tex/wwood1_5.png"),
-        "id1/textures/*teleport.png": withPrefix("/data/tex/teleport.png"),
+        "id1/textures/#lava1_luma.tga": withPrefix("/data/tex/lava1_luma.tga"),
+        "id1/textures/#lava1.tga": withPrefix("/data/tex/lava1.tga"),
         "id1/gfx/ranking.png": withPrefix("/data/tex/ranking.png"),
         "id1/textures/models/end1.mdl_0.png": withPrefix("/data/id1/textures/models/end1_0.png"),
         "id1/textures/models/end2.mdl_0.png": withPrefix("/data/id1/textures/models/end2_0.png"),
@@ -96,6 +87,7 @@ class FteComponent extends React.Component {
         "id1/textures/models/end4.mdl_0.png": withPrefix("/data/id1/textures/models/end4_0.png"),
         "qw/fragfile.dat": withPrefix("/data/fragfile.dat"),
         "qw/match.mvd.gz": demoUrl,
+        ... episodeFlatTex
       },
     }
 
