@@ -13,10 +13,11 @@ const Match = ({ slug, image, team, map, directory }) => {
         <GatsbyImage className={matchStyle.mapContainer} imgClassName={matchStyle.mapImage} image={image} objectFit="scale" alt="" />
         <div className={matchStyle.infoContainer}>
           <div className={team.red.frags > team.blue.frags ? matchStyle.infoGridRed : matchStyle.infoGridBlue}>
-            <div className={matchStyle.infoMap}>{map.toUpperCase()}</div>
-            <div className={matchStyle.infoNumPlayers}>
-              {team.red.players}on{team.blue.players}
+            <div className={matchStyle.infoMap}>
+              <span>{map.toUpperCase()}</span>
+              <span className={matchStyle.infoNumPlayers}>{team.red.players}on{team.blue.players}</span>
             </div>
+            
             <div className={matchStyle.infoTeamRed}>Red:</div>
             <div className={matchStyle.infoRedFrags}>{team.red.frags}</div>
             <div className={matchStyle.infoTeamBlue}>Blue:</div>

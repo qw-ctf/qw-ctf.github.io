@@ -14,29 +14,21 @@ $borderColor: #777;
   grid-template-rows: auto;
   margin-top: 1em;
   margin-bottom: 6em;
-}
 
-@media only screen and (max-width: 2600px) {
-  .matchListing {
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+  @include xl {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
-}
 
-@media only screen and (max-width: 1800px) {
-  .matchListing {
-      grid-template-columns: 1fr 1fr 1fr;
+  @include lg {
+    grid-template-columns: 1fr 1fr 1fr;
   }
-}
 
-@media only screen and (max-width: 1200px) {
-  .matchListing {
-     grid-template-columns: 1fr 1fr;
+  @include md {
+    grid-template-columns: 1fr 1fr;
   }
-}
 
-@media only screen and (max-width: 700px) {
-  .matchListing {
-     grid-template-columns: 1fr;
+  @include sm {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -48,10 +40,13 @@ $borderColor: #777;
 .matchListing a:hover {
   transform: scale(1.05);
 }
+
 .container {
   display: grid;
   aspect-ratio: 16/9;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+//  min-width: 22em;
 }
 
 .mapContainer {
@@ -77,13 +72,36 @@ $borderColor: #777;
   width: 100%;
   display: grid;
   backdrop-filter: blur(2px);
-  grid-template-areas: "map numPlayers redTeam redScore" "map numPlayers blueTeam blueScore";
-  grid-template-columns: 1fr 4fr 4fr 1fr;
+  grid-template-areas: "map redTeam redScore" "map blueTeam blueScore";
+  grid-template-columns: auto 1fr auto;
   grid-template-rows: 1fr 1fr;
 
   border-left: 1px solid $borderColor;
   border-right: 1px solid $borderColor;
   border-bottom: 1px solid $borderColor;
+
+  font-size: 1em;
+  line-height: 1em;
+
+  @include xl {
+    font-size: 0.8em;
+    line-height: 0.8em;
+  }
+
+  @include lg {
+    font-size: 0.75em;
+    line-height: 0.75em;
+  }
+
+  @include md {
+    font-size: 0.65em;
+    line-height: 0.65em;
+  }
+
+  @include sm {
+    font-size: 0.9em;
+    line-height: 0.9em;
+  }
 
   &Red {
     @extend .infoGrid;
@@ -98,24 +116,29 @@ $borderColor: #777;
 
 .infoMap {
   grid-area: map;
-  font-size: 1.8em;
-  margin-top: auto;
-  letter-spacing: -2px;
-  height: 32px;
-  margin-left: 0.2em;
+  font-size: 3em;
+  letter-spacing: -0.04em;
+  margin-left: 0.1em;
+  align-self: flex-end;
+}
+
+.infoMap span {
+  line-height: 1em;
 }
 
 .infoNumPlayers {
-  display: table-cell;
-  grid-area: numPlayers;
-  margin-top: auto;
-  height: 27px;
-  margin-left: 0.2em;
+  font-size: 0.35em;
+  letter-spacing: -0.04em;
+  margin-left: 0em;
+  align-self: flex-end;
 }
 
 .infoTeamRed {
   grid-area: redTeam;
   justify-self: right;
+  align-self: flex-end;
+  margin-bottom: 0;
+  line-height: 1em;
 }
 
 .infoRedFrags {
@@ -123,11 +146,16 @@ $borderColor: #777;
   grid-area: redScore;
   min-width: 2.5em;
   margin-right: 0.2em;
+  align-self: flex-end;
+  line-height: 1em;
 }
 
 .infoTeamBlue {
   grid-area: blueTeam;
   justify-self: right;
+  //align-self: flex-end;
+  align-self: center;
+  line-height: 1em;
 }
 
 .infoBlueFrags {
@@ -135,4 +163,7 @@ $borderColor: #777;
   grid-area: blueScore;
   min-width: 2.5em;
   margin-right: 0.2em;
+  //align-self: flex-end;
+  align-self: center;
+  line-height: 1em;
 }
