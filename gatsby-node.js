@@ -12,7 +12,7 @@ exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions
 
   if (node.internal.type === "MatchJson") {
-    const slug = node.demo.replace(".mvd", "").replaceAll(/[^A-Za-z0-9]/g, "-")
+    const slug = node.demo.replace(".mvd", "").replace(/[^A-Za-z0-9]/g, "-")
 
     const date = new Date(node.date)
     date.setHours(0)
