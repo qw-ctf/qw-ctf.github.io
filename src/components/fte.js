@@ -53,13 +53,15 @@ class FteComponent extends React.Component {
     const baseUrl = "https://media.githubusercontent.com/media/qw-ctf/matches/main/"
     const targetMapBsp = "id1/maps/" + this.props.map + ".bsp"
     const targetMapLit = "id1/maps/" + this.props.map + ".lit"
-    const sourceMapBsp = withPrefix("/data/id1/maps/" + this.props.map + ".bsp")
-    const sourceMapLit = withPrefix("/data/id1/maps/" + this.props.map + ".lit")
     const demoUrl = `${baseUrl}${this.props.directory}/${encodeURIComponent(this.props.demo)}.gz`
 
-    const episodeFlatTex = /(dm[1-7]|e[1-4]m[1-8])/.test(this.props.map) ? {
-      "qw/flat.pk3": withPrefix("/data/id1/flat.pk3"),
-    } : {}
+    const mapContent = /(dm[1-7]|e[1-4]m[1-8])/.test(this.props.map) ? {
+      [targetMapBsp]: `https://raw.githubusercontent.com/fzwoch/quake_map_source/master/bsp/${this.props.map}.bsp`,
+      [targetMapLit]: `https://media.githubusercontent.com/media/qw-ctf/lits/main/jscolour/id1_gpl/${this.props.map}.lit`,
+    } : {
+      [targetMapBsp]: withPrefix("/data/id1/maps/" + this.props.map + ".bsp"),
+      [targetMapLit]: `https://media.githubusercontent.com/media/qw-ctf/lits/main/jscolour/maps/${this.props.map}.lit`,
+    }
 
     window.Module = {
       canvas: this.canvasRef.current,
@@ -75,9 +77,6 @@ class FteComponent extends React.Component {
         "id1/textures.pk3": withPrefix("/data/id1/textures.pk3"),
         "id1/plaguespack_fte.pk3": withPrefix("/data/id1/plaguespack_fte.pk3"),
         "id1/tracker.pk3": withPrefix("/data/id1/tracker.pk3"),
-        [targetMapBsp]: withPrefix(sourceMapBsp),
-        [targetMapLit]: withPrefix(sourceMapLit),
-        "id1/textures/#04water1.png": withPrefix("/data/tex/water.png"),
         "id1/textures/#lava1_luma.png": withPrefix("/data/tex/lava1_luma.png"),
         "id1/textures/#lava1.png": withPrefix("/data/tex/lava1.png"),
         "id1/textures/#teleport.png": withPrefix("/data/tex/teleport.png"),
@@ -88,7 +87,7 @@ class FteComponent extends React.Component {
         "id1/textures/models/end4.mdl_0.png": withPrefix("/data/id1/textures/models/end4_0.png"),
         "qw/fragfile.dat": withPrefix("/data/fragfile.dat"),
         "qw/match.mvd.gz": demoUrl,
-        ... episodeFlatTex
+        ... mapContent
       },
     }
 
