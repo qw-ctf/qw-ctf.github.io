@@ -2,10 +2,11 @@ import * as React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
+import * as headerStyle from "./header.module.scss"
 
 const Header = ({ siteTitle }) => (
     <header>
-        <div id="navigation-bar">
+        <div className={headerStyle.navigationBar}>
             <ul>
                 <li>
                     <a href="/">
