@@ -10,10 +10,16 @@ $borderColor: #777;
 .matchListing {
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
   margin-top: 1em;
   margin-bottom: 6em;
+}
+
+@media only screen and (max-width: 2600px) {
+  .matchListing {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 }
 
 @media only screen and (max-width: 1800px) {
