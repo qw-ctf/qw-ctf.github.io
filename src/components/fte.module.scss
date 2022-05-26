@@ -30,14 +30,6 @@ canvas.emscripten {
   background: black;
   margin: 0px;
   padding: 0px;
-
-  @include lg {
-    width: 80%;
-  }
-
-  @include xl {
-    width: 60%;
-  }
 }
 
 .playerControls {
