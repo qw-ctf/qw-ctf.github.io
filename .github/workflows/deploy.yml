@@ -17,9 +17,9 @@ jobs:
         with:
           path: |
             node_modules
-          key: npm-${{ hashFiles('package-lock.json') }}
+          key: npm-${{ hashFiles('yarn.lock') }}
           restore-keys: |
-            npm-${{ hashFiles('package-lock.json') }}
+            npm-${{ hashFiles('yarn.lock') }}
             npm-
 
       # - name: Checkout Fragfile
