@@ -1,34 +1,35 @@
 import * as React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
+import { StaticImage } from "gatsby-plugin-image"
 
 const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `grey`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `#aaa`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
+    <header>
+        <div id="navigation-bar">
+            <ul>
+                <li>
+                    <a href="/">
+                        <StaticImage placeholder="none" loading="eager" style={{ height: '3rem', width: '2em'}} imgStyle={{ objectFit: 'contain' }} src="../images/qtube.png"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="/">
+                        {siteTitle}
+                    </a>
+                </li>
+                <li style={{float:"right", paddingRight: "0", paddingLeft: "1em"}}>
+                    <a href="https://github.com/qw-ctf">
+                        <StaticImage placeholder="none" loading="eager" style={{ height: '2.5rem', width: '1em'}} imgStyle={{ objectFit: 'contain' }}src="../images/github.png"/>
+                    </a>
+                </li>
+                <li style={{float:"right", paddingRight: "0", paddingLeft: "1em"}}>
+                    <a href="https://discord.gg/s32hb3H4mg">
+                        <StaticImage placeholder="none" loading="eager" style={{ height: '2.8rem', width: '1em'}} imgStyle={{ objectFit: 'contain' }}src="../images/discord.png"/>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
 )
 
 Header.propTypes = {
