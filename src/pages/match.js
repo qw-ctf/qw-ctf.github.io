@@ -2,7 +2,6 @@ import * as React from "react"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import FteComponent from "../components/fte"
-import DiscordButton from "../components/discord"
 import { window, document } from 'browser-monads';
 
 
@@ -20,7 +19,6 @@ const MatchPage = ({ pageContext: { demo, map, directory, duration } }) => {
     <Layout>
       <Seo title="demo" />
       {iOS() ? "iOS browser performance is really bad, please fix, or use Desktop or Android" : <FteComponent demo={demo} map={map} directory={directory} duration={duration}/>}
-      <DiscordButton />
     </Layout>
   )
 }
