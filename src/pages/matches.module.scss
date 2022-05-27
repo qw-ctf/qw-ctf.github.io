@@ -66,19 +66,6 @@ $borderColor: #777;
   color: #fff;
   font-weight: bolder;
   text-shadow: 1px 1px 2px #000, 0 0 2px #555, 0 0 2px #555;
-}
-
-.infoGrid {
-  width: 100%;
-  display: grid;
-  backdrop-filter: blur(2px);
-  grid-template-areas: "map redTeam redScore" "map blueTeam blueScore";
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: 1fr 1fr;
-
-  border-left: 1px solid $borderColor;
-  border-right: 1px solid $borderColor;
-  border-bottom: 1px solid $borderColor;
 
   font-size: 1em;
   line-height: 1em;
@@ -102,6 +89,19 @@ $borderColor: #777;
     font-size: 0.9em;
     line-height: 0.9em;
   }
+}
+
+.infoGrid {
+  width: 100%;
+  display: grid;
+  backdrop-filter: blur(2px);
+  grid-template-areas: "map redTeam redScore" "map blueTeam blueScore";
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: 1fr 1fr;
+
+  border-left: 1px solid $borderColor;
+  border-right: 1px solid $borderColor;
+  border-bottom: 1px solid $borderColor;
 
   &Red {
     @extend .infoGrid;
