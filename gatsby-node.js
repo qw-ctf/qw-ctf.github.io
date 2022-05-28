@@ -1,4 +1,5 @@
 const path = require(`path`)
+const fs = require("fs")
 
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
@@ -46,6 +47,7 @@ exports.onCreateNode = ({ node, actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
+  const mapMetadata = JSON.parse(fs.readFileSync('data/map.metadata.json'))
   const matchTemplate = path.resolve(`src/pages/match.js`)
   const result = await graphql(`
     query Pages {
@@ -74,7 +76,10 @@ exports.createPages = async ({ graphql, actions }) => {
       component: matchTemplate,
       context: {
         demo: edge.node.demo,
-        map: edge.node.map,
+        map: {
+          "name": edge.node.map,
+          "metadata": mapMetadata[edge.node.map]
+        },
         directory: edge.node.parent.directory,
         duration: edge.node.duration,
       },

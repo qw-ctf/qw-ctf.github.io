@@ -18,7 +18,8 @@ const MatchPage = ({ pageContext: { demo, map, directory, duration } }) => {
   return (
     <Layout>
       <Seo title="demo" />
-      {iOS() ? "iOS browser performance is really bad, please fix, or use Desktop or Android" : <FteComponent demo={demo} map={map} directory={directory} duration={duration}/>}
+      {iOS() ? "iOS browser performance is really bad, please fix, or use Desktop or Android" : <FteComponent demo={demo} map={map.name} directory={directory} duration={duration}/>}
+      <h1>{map.name.toUpperCase()}: {map.metadata.name} by {map.metadata.author || "Unknown"}</h1>
     </Layout>
   )
 }

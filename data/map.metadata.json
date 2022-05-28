@@ -1,0 +1,273 @@
+{
+    "dm1": {
+        "name": "Place of Two Deaths",
+        "author": "Tim Willits"
+    },
+    "dm2": {
+        "name": "Claustrophobopolis",
+        "author": "American McGee"
+    },
+    "dm3": {
+        "name": "The Abandonded Base",
+        "author": "John Romero"
+    },
+    "dm4": {
+        "name": "The Bad Place",
+        "author": "American McGee"
+    },
+    "dm5": {
+        "name": "The Cistern",
+        "author": "Tim Willits"
+    },
+    "dm6": {
+        "name": "The Dark Zone",
+        "author": "Tim Willits"
+    },
+    "e1m1": {
+        "name": "The Slipgate Complex",
+        "author": "John Romero"
+    },
+    "e1m2": {
+        "name": "Castle of the Damned",
+        "author": "Tim Willits"
+    },
+    "e1m3": {
+        "name": "The Necropolis",
+        "author": "Tim Willits"
+    },
+    "e1m4": {
+        "name": "The Grisly Grotto",
+        "author": "Tim Willits"
+    },
+    "e1m5": {
+        "name": "Gloom Keep",
+        "author": "Tim Willits"
+    },
+    "e1m6": {
+        "name": "The Door to Chthon",
+        "author": "American McGee"
+    },
+    "e1m7": {
+        "name": "The House of Chthon",
+        "author": "American McGee"
+    },
+    "e1m8": {
+        "name": "Ziggurat Vertigo",
+        "author": "American McGee"
+    },
+    "e2m1": {
+        "name": "The Installation",
+        "author": "John Romero"
+    },
+    "e2m2": {
+        "name": "The Ogre Citadel",
+        "author": "John Romero"
+    },
+    "e2m3": {
+        "name": "The Crypt of Decay",
+        "author": "John Romero"
+    },
+    "e2m4": {
+        "name": "The Ebon Fortress",
+        "author": "John Romero"
+    },
+    "e2m5": {
+        "name": "The Wizard's Manse",
+        "author": "John Romero"
+    },
+    "e2m6": {
+        "name": "The Dismal Oubliette",
+        "author": "John Romero"
+    },
+    "e2m7": {
+        "name": "The Underearth",
+        "author": "Tim Willits"
+    },
+    "e3m1": {
+        "name": "Termination Central",
+        "author": "John Romero"
+    },
+    "e3m2": {
+        "name": "The Vaults of Zin",
+        "author": "American McGee"
+    },
+    "e3m3": {
+        "name": "The Tomb of Terror",
+        "author": "American McGee"
+    },
+    "e3m4": {
+        "name": "Satan's Dark Delight",
+        "author": "American McGee"
+    },
+    "e3m5": {
+        "name": "The Wind Tunnels",
+        "author": "Tim Willits"
+    },
+    "e3m6": {
+        "name": "Chambers of Torment",
+        "author": "American McGee & Tim Willits"
+    },
+    "e3m7": {
+        "name": "The Haunted Halls",
+        "author": "American McGee"
+    },
+    "e4m1": {
+        "name": "The Sewage System",
+        "author": "Tim Willits"
+    },
+    "e4m2": {
+        "name": "The Tower of Despair",
+        "author": "Sandy Petersen"
+    },
+    "e4m3": {
+        "name": "The Elder God Shrine",
+        "author": "Sandy Petersen"
+    },
+    "e4m4": {
+        "name": "The Palace of Hate",
+        "author": "Sandy Petersen"
+    },
+    "e4m5": {
+        "name": "Hell's Atrium",
+        "author": "Sandy Petersen"
+    },
+    "e4m6": {
+        "name": "The Pain Maze",
+        "author": "Sandy Petersen"
+    },
+    "e4m7": {
+        "name": "Azure Agony",
+        "author": "Sandy Petersen"
+    },
+    "e4m8": {
+        "name": "The Nameless City",
+        "author": "Sandy Petersen"
+    },
+    "end": {
+        "name": "Shub-Niggurath's Pit",
+        "author": "John Romero"
+    },
+    "ctf1": {
+        "name": "McKinley Base",
+        "author": "David 'Zoid' Kirsch"
+    },
+    "ctf2": {
+        "name": "The Kiln",
+        "author": "Brian Wight"
+    },
+    "ctf3": {
+        "name": "DySpHoRiA",
+        "author": "Chris 'b0rt' Thibodeaux"
+    },
+    "ctf4": {
+        "name": "The Forgotten Mines",
+        "author": "Brian Wight"
+    },
+    "ctf5": {
+        "name": "Da Ancient War Grounds",
+        "author": "Matthew 'DaBug' Hooper"
+    },
+    "ctf6": {
+        "name": "Vertigo",
+        "author": "Dale 'midiguy' Bertheola"
+    },
+    "ctf7": {
+        "name": "Tale of Two Cities",
+        "author": "Jamie Mactaggart"
+    },
+    "ctf8": {
+        "name": "The Strongbox",
+        "author": "Brent '[Drizzt]' Mcleod"
+    },
+    "ctf2m1": {
+        "name": "McKinley Station",
+        "author": "David 'Zoid' Kirsch"
+    },
+    "ctf2m2": {
+        "name": "The Warzone",
+        "author": "John 'Tattoo' Schultz"
+    },
+    "ctf2m3": {
+        "name": "Spill the Blood",
+        "author": "Dale 'midiguy' Bertheola"
+    },
+    "ctf2m4": {
+        "name": "Ruins of NeoMinonk",
+        "author": "Ogre 'El_Ergo' De Latoya"
+    },
+    "ctf2m5": {
+        "name": "Disciple War Grounds",
+        "author": "Hexadecimal"
+    },
+    "ctf2m6": {
+        "name": "The Two Towers",
+        "author": "Alexander Bernecker"
+    },
+    "ctf2m7": {
+        "name": "Gloom Castles",
+        "author": "Tim Willits"
+    },
+    "ctf2m8": {
+        "name": "Capturephobolis",
+        "author": "American McGee"
+    },
+    "ctf3m1": {
+        "name": "Remix"
+    },
+    "ctf3m2": {
+        "name": "Red Alert",
+        "author": "EG"
+    },
+    "ctf3m3": {
+        "name": "Stop the Flow"
+    },
+    "ctf3m4": {
+        "name": "The Nameless Mines (the sequel)"
+    },
+    "ctf3m5": {
+        "name": "Egyptian Pig Factory",
+        "author": "Ziggurat"        
+    },
+    "ctf3m6": {
+        "name": "UKCTFL1",
+        "author": "Repo"
+    },
+    "ctf3m7": {
+        "name": "The Dark Age",
+        "author": "EG"
+    },
+    "ctf3m8": {
+        "name": "The Place off Two Bases"
+    },
+    "ctf3m9": {
+        "name": "Cheat!Barkfalls"
+    },
+    "head": {
+        "name": "Gimme Some Head to Head",
+        "author": "Forrest"
+    },
+    "boom": {
+        "name": "Ba-Boom",
+        "author": "Forrest"
+    },
+    "gym": {
+        "name": "The Gymnasium",
+        "author": "Forrest"
+    },
+    "capit": {
+        "name": "Cap it!",
+        "author": "skeLman"
+    },
+    "softbox": {
+        "name": "The Softbox",
+        "author": "Forrest"
+    },
+    "pound": {
+        "name": "Mad Dog Pound",
+        "author": "Forrest"
+    },
+    "qwq3wcp9": {
+        "name": "Spider Crossings",
+        "author": "3w"
+    }
+}
