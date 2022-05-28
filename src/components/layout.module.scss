@@ -10,7 +10,7 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: hsla(0, 0%, 0%, 0.8);
+  color: #212427;
   background-color: #ddd;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
   Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -55,6 +55,7 @@ template {
 }
 a {
   text-decoration: none;
+  color: inherit;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
 }
