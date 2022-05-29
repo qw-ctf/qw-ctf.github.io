@@ -97,6 +97,7 @@ class FteComponent extends React.Component {
     document.head.appendChild(fteScript)
 
     screenfull.on("change", this.onResize.bind(this))
+    window.addEventListener("resize", this.onResize.bind(this));
 
     const parts = window.location.hash.substring(1).split("&")
     for (let i = 0; i < parts.length; i++) {
@@ -200,9 +201,12 @@ class FteComponent extends React.Component {
   }
 
   onResize() {
-    const conWidth = (this.playerRef.current.clientWidth / 4) * window.devicePixelRatio
     window.onresize()
-    window.Module.execute("vid_conwidth " + conWidth.toString())
+
+    const width = (window.screen.orientation.angle == 0) ? this.playerRef.current.clientWidth : this.playerRef.current.clientHeight
+
+    // Arbitrary scaling ratio based on 4 * DPI for 4k fullscreen.
+    window.Module.execute("vid_conautoscale " + (4.0 * window.devicePixelRatio * (width / 3840.0)).toString())
   }
 
   toggleFullscreen() {
