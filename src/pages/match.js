@@ -15,12 +15,26 @@ function iOS() {
   )
 }
 
-const MatchPage = ({ pageContext: { demo, map, directory, duration } }) => {
+function parseName(name) {
+  let result = ""
+  for (var i = 0; i < name.length; i++) {
+    const code = name.charCodeAt(i)
+    if (code >= 128) {
+      code -= 128
+      result += String.fromCharCode(code)
+    } else {
+      result += name[i]
+    }
+    
+  }
+  return result
+}
+
+const MatchPage = ({ pageContext: { demo, map, directory, duration, stats } }) => {
   const baseUrl = "https://media.githubusercontent.com/media/qw-ctf/matches/main/"
   const demoUrl = `${baseUrl}${directory}/${encodeURIComponent(demo)}.gz`
   // TODO: Figure out why map can be null here
-  if (map == undefined)
-    return (<div/>)
+  if (map == undefined) return <div />
 
   return (
     <Layout>
@@ -40,11 +54,49 @@ const MatchPage = ({ pageContext: { demo, map, directory, duration } }) => {
         </div>
         <div className={matchStyle.download}>
           <a href={demoUrl}>
-          <FontAwesomeIcon icon={faDownload} />
-          Download
+            <FontAwesomeIcon icon={faDownload} />
+            Download
           </a>
         </div>
       </div>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Points</th>
+          <th>Kills</th>
+          <th>Deaths</th>
+        <th>Flag Caps</th>
+        <th>Flag Pickups</th>
+        <th>Flag Defends</th>
+        <th>Flag Returns</th>
+        <th>Carrier Defs</th>
+        <th>Carrier Frags</th>
+        <th>Resistance Rune</th>
+        <th>Strength Rune</th>
+        <th>Haste Rune</th>
+        <th>Regeneration Rune</th>
+        </tr>
+        {stats.map(player => {
+          return (
+            <tr>
+              <td style={{fontWeight: "bold"}}>{parseName(player.name)}</td>
+              <td>{player.stats.frags}</td>
+              <td>{player.stats.kills}</td>
+              <td>{player.stats.deaths}</td>
+              <td>{player.ctf.caps || 0}</td>
+              <td>{player.ctf.pickups || 0}</td>
+              <td>{player.ctf.defends || 0}</td>
+              <td>{player.ctf.returns || 0}</td>
+              <td>{player.ctf.carrier_defends || 0}</td>
+              <td>{player.ctf.carrier_frags || 0}</td>
+              <td>{Math.floor(player.ctf.runes[0] * 100.0 / duration)}%</td>
+              <td>{Math.floor(player.ctf.runes[1] * 100.0 / duration)}%</td>
+              <td>{Math.floor(player.ctf.runes[2] * 100.0 / duration)}%</td>
+              <td>{Math.floor(player.ctf.runes[3] * 100.0 / duration)}%</td>
+            </tr>
+          )
+        })}
+      </table>
     </Layout>
   )
 }

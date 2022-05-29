@@ -65,6 +65,41 @@ exports.createPages = async ({ graphql, actions }) => {
                 directory: relativeDirectory
               }
             }
+            players {
+              ctf {
+                caps
+                carrier_defends
+                carrier_frags
+                defends
+                pickups
+                points
+                returns
+                runes
+              }
+              stats {
+                deaths
+                kills
+                frags
+              }
+              weapons {
+                rl {
+                  acc {
+                    virtual
+                    real
+                    hits
+                    attacks
+                  }
+                }
+                lg {
+                  acc {
+                    hits
+                    attacks
+                  }
+                }
+              }
+              name
+              team
+            }
           }
         }
       }
@@ -82,6 +117,7 @@ exports.createPages = async ({ graphql, actions }) => {
         },
         directory: edge.node.parent.directory,
         duration: edge.node.duration,
+        stats: edge.node.players
       },
     })
   })
