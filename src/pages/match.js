@@ -18,6 +18,9 @@ function iOS() {
 const MatchPage = ({ pageContext: { demo, map, directory, duration } }) => {
   const baseUrl = "https://media.githubusercontent.com/media/qw-ctf/matches/main/"
   const demoUrl = `${baseUrl}${directory}/${encodeURIComponent(demo)}.gz`
+  // TODO: Figure out why map can be null here
+  if (map == undefined)
+    return (<div/>)
 
   return (
     <Layout>
