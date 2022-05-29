@@ -20,8 +20,7 @@ function parseName(name) {
   for (var i = 0; i < name.length; i++) {
     const code = name.charCodeAt(i)
     if (code >= 128) {
-      code -= 128
-      result += String.fromCharCode(code)
+      result += String.fromCharCode(code - 128)
     } else {
       result += name[i]
     }
