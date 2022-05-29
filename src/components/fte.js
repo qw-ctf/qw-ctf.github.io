@@ -206,7 +206,7 @@ class FteComponent extends React.Component {
     const width = (window.screen.orientation.angle == 0) ? this.playerRef.current.clientWidth : this.playerRef.current.clientHeight
 
     // Arbitrary scaling ratio based on 4 * DPI for 4k fullscreen.
-    window.Module.execute("vid_conautoscale " + (4.0 * window.devicePixelRatio * (width / 3840.0)).toString())
+    window.Module.execute("vid_conautoscale " + Math.ceil(4.0 * window.devicePixelRatio * (width / 3840.0)).toString())
   }
 
   toggleFullscreen() {
