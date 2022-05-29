@@ -1,3 +1,5 @@
+@import "../style/breakpoints.scss";
+
 .matchInfo {
   padding-top: 1em;
   width: 100%;
@@ -16,6 +18,14 @@
 .mapName {
   grid-area: mapName;
   font-size: 2em;
+    
+  @include sm {
+    font-size: 1em;
+  }
+
+  @include md {
+    font-size: 1.2em;
+  }
 }
 
 .matchInfo svg {
@@ -27,15 +37,43 @@
   font-size: 1.2em;
 }
 
+.shareText {
+  @include sm {
+    display: none;
+  }
+
+  @include md {
+    display: none;
+  }
+}
+
 .download {
   grid-area: download;
   font-size: 1.2em;
   margin-left: 1em;
+
+  @include sm {
+    margin-left: 0;
+  }
+
+  @include md {
+    margin-left: 0;
+  }
+}
+
+.downloadText {
+  @include sm {
+    display: none;
+  }
+
+  @include md {
+    display: none;
+  }
 }
 
 .tableWrap {
   width: 100%;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: visible;
   padding: 0;
 }
@@ -54,6 +92,7 @@
 table {
   border-collapse: separate;
   border-spacing: 0;
+  padding-top: 2em;
 }
 td,
 th {

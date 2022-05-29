@@ -48,12 +48,12 @@ const MatchPage = ({ pageContext: { demo, map, directory, duration, stats } }) =
         </div>
         <div className={matchStyle.share}>
           <FontAwesomeIcon icon={faShare} />
-          Share
+          <span className={matchStyle.shareText}>Share</span>
         </div>
         <div className={matchStyle.download}>
           <a href={demoUrl}>
             <FontAwesomeIcon icon={faDownload} />
-            Download
+            <span className={matchStyle.downloadText}>Download</span>
           </a>
         </div>
       </div>
