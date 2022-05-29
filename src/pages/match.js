@@ -24,7 +24,6 @@ function parseName(name) {
     } else {
       result += name[i]
     }
-    
   }
   return result
 }
@@ -58,44 +57,46 @@ const MatchPage = ({ pageContext: { demo, map, directory, duration, stats } }) =
           </a>
         </div>
       </div>
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Points</th>
-          <th>Kills</th>
-          <th>Deaths</th>
-        <th>Flag Caps</th>
-        <th>Flag Pickups</th>
-        <th>Flag Defends</th>
-        <th>Flag Returns</th>
-        <th>Carrier Defs</th>
-        <th>Carrier Frags</th>
-        <th>Resistance Rune</th>
-        <th>Strength Rune</th>
-        <th>Haste Rune</th>
-        <th>Regeneration Rune</th>
-        </tr>
-        {stats.map(player => {
-          return (
-            <tr>
-              <td style={{fontWeight: "bold"}}>{parseName(player.name)}</td>
-              <td>{player.stats.frags}</td>
-              <td>{player.stats.kills}</td>
-              <td>{player.stats.deaths}</td>
-              <td>{player.ctf.caps || 0}</td>
-              <td>{player.ctf.pickups || 0}</td>
-              <td>{player.ctf.defends || 0}</td>
-              <td>{player.ctf.returns || 0}</td>
-              <td>{player.ctf.carrier_defends || 0}</td>
-              <td>{player.ctf.carrier_frags || 0}</td>
-              <td>{Math.floor(player.ctf.runes[0] * 100.0 / duration)}%</td>
-              <td>{Math.floor(player.ctf.runes[1] * 100.0 / duration)}%</td>
-              <td>{Math.floor(player.ctf.runes[2] * 100.0 / duration)}%</td>
-              <td>{Math.floor(player.ctf.runes[3] * 100.0 / duration)}%</td>
-            </tr>
-          )
-        })}
-      </table>
+      <div className={matchStyle.tableWrap}>
+        <table>
+          <tr>
+            <th className={matchStyle.nameColumn}>Name</th>
+            <th>Points</th>
+            <th>Kills</th>
+            <th>Deaths</th>
+            <th>Flag Caps</th>
+            <th>Flag Pickups</th>
+            <th>Flag Defends</th>
+            <th>Flag Returns</th>
+            <th>Carrier Defs</th>
+            <th>Carrier Frags</th>
+            <th>Resistance Rune</th>
+            <th>Strength Rune</th>
+            <th>Haste Rune</th>
+            <th>Regeneration Rune</th>
+          </tr>
+          {stats.map(player => {
+            return (
+              <tr>
+                <td className={matchStyle.nameColumn}>{parseName(player.name)}</td>
+                <td>{player.stats.frags}</td>
+                <td>{player.stats.kills}</td>
+                <td>{player.stats.deaths}</td>
+                <td>{player.ctf.caps || 0}</td>
+                <td>{player.ctf.pickups || 0}</td>
+                <td>{player.ctf.defends || 0}</td>
+                <td>{player.ctf.returns || 0}</td>
+                <td>{player.ctf.carrier_defends || 0}</td>
+                <td>{player.ctf.carrier_frags || 0}</td>
+                <td>{Math.floor((player.ctf.runes[0] * 100.0) / duration)}%</td>
+                <td>{Math.floor((player.ctf.runes[1] * 100.0) / duration)}%</td>
+                <td>{Math.floor((player.ctf.runes[2] * 100.0) / duration)}%</td>
+                <td>{Math.floor((player.ctf.runes[3] * 100.0) / duration)}%</td>
+              </tr>
+            )
+          })}
+        </table>
+      </div>
     </Layout>
   )
 }
