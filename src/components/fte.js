@@ -247,11 +247,11 @@ class FteComponent extends React.Component {
   }
 
   onTouchStart() {
-    window.Module.execute("+showteamscores")
+    window.Module.execute("+scoreboard")
   }
 
   onTouchEnd() {
-    window.Module.execute("-showteamscores")
+    window.Module.execute("-scoreboard")
   }
 
   onDemoSeek(event) {
