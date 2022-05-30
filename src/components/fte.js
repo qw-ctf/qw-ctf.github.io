@@ -85,6 +85,7 @@ class FteComponent extends React.Component {
         "id1/particles/explosion.cfg": withPrefix("/data/id1/particles/explosion.cfg"),
         "id1/particles/bubble-trail.cfg": withPrefix("/data/id1/particles/bubble-trail.cfg"),
         "id1/particles/teleport.cfg": withPrefix("/data/id1/particles/teleport.cfg"),
+        "id1/particles/runes.cfg": withPrefix("/data/id1/particles/runes.cfg"),
         "id1/textures/particles/flame.tga": withPrefix("/data/id1/textures/particles/flame.tga"),
         "id1/textures/particles/rfire.tga": withPrefix("/data/id1/textures/particles/rfire.tga"),
         "id1/textures/particles/generic.png": withPrefix("/data/id1/textures/particles/generic.png"),
