@@ -6,6 +6,7 @@ import { window, document } from "browser-monads"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faShare, faDownload } from "@fortawesome/free-solid-svg-icons"
 import * as matchStyle from "./match.module.scss"
+import { useTable, useSortBy } from "react-table"
 
 function iOS() {
   return (
@@ -15,22 +16,187 @@ function iOS() {
   )
 }
 
-function parseName(name) {
-  let result = ""
-  for (var i = 0; i < name.length; i++) {
-    const code = name.charCodeAt(i)
-    if (code >= 128) {
-      result += String.fromCharCode(code - 128)
-    } else {
-      result += name[i]
-    }
-  }
-  return result
+const MatchStats = ({ columns, data }) => {
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+    {
+      columns,
+      data,
+      initialState: {
+        sortBy: [
+          {
+            id: "frags",
+            desc: true,
+          },
+        ],
+      },
+    },
+    useSortBy
+  )
+
+  return (
+    <>
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render("Header")}
+                  <span style={{ fontSize: "0.7em" }}>{column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}</span>
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map(row => {
+            prepareRow(row)
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell, i) => {
+                  if (i == 0) {
+                    return <th {...cell.getCellProps()}>{cell.render("Cell")}</th>
+                  }
+                  return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                })}
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </>
+  )
 }
 
-const MatchPage = ({ pageContext: { demo, map, directory, duration, stats } }) => {
+const MatchPage = ({ pageContext: { demo, map, directory, duration, stats, matchStats } }) => {
   const baseUrl = "https://media.githubusercontent.com/media/qw-ctf/matches/main/"
   const demoUrl = `${baseUrl}${directory}/${encodeURIComponent(demo)}.gz`
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: " ",
+        columns: [
+          {
+            Header: "Name",
+            accessor: "name",
+            id: "header",
+          },
+          {
+            Header: "Frags",
+            accessor: "frags",
+          },
+          {
+            Header: "Points",
+            accessor: "ctf_points",
+          },
+          {
+            Header: "Kills",
+            accessor: "kills",
+          },
+          {
+            Header: "Deaths",
+            accessor: "deaths",
+          },
+        ],
+      },
+      {
+        Header: "Powerups",
+        columns: [
+          {
+            Header: "Quad",
+            accessor: "quad_takes",
+          },
+          {
+            Header: "Pent",
+            accessor: "pent_takes",
+          },
+        ],
+      },
+      {
+        Header: "Flag",
+        columns: [
+          {
+            Header: "Captures",
+            accessor: "flag_captures",
+          },
+          {
+            Header: "Pickups",
+            accessor: "flag_pickups",
+          },
+          {
+            Header: "Defends",
+            accessor: "flag_defends",
+          },
+          {
+            Header: "Returns",
+            accessor: "flag_returns",
+          },
+        ],
+      },
+      {
+        Header: "Flag Carrier",
+        columns: [
+          {
+            Header: "Defends",
+            accessor: "flag_carrier_defends",
+          },
+          {
+            Header: "Frags",
+            accessor: "flag_carrier_frags",
+          },
+        ],
+      },
+      {
+        Header: "Runes",
+        columns: [
+          {
+            Header: "Res",
+            accessor: "rune_time_res",
+          },
+          {
+            Header: "Str",
+            accessor: "rune_time_str",
+          },
+          {
+            Header: "Hst",
+            accessor: "rune_time_hst",
+          },
+          {
+            Header: "Reg",
+            accessor: "rune_time_reg",
+          },
+        ],
+      },
+      {
+        Header: "Rocket Launcher",
+        columns: [
+          {
+            Header: "Hits",
+            accessor: "weapon_rl_hits",
+          },
+          {
+            Header: "Attacks",
+            accessor: "weapon_rl_attacks",
+          },
+        ],
+      },
+      {
+        Header: "Lightning Gun",
+        columns: [
+          {
+            Header: "Hits",
+            accessor: "weapon_lg_hits",
+          },
+          {
+            Header: "Attacks",
+            accessor: "weapon_lg_attacks",
+          },
+        ],
+      },
+    ],
+    []
+  )
+
   // TODO: Figure out why map can be null here
   if (map == undefined) return <div />
 
@@ -58,44 +224,7 @@ const MatchPage = ({ pageContext: { demo, map, directory, duration, stats } }) =
         </div>
       </div>
       <div className={matchStyle.tableWrap}>
-        <table>
-          <tr>
-            <th className={matchStyle.nameColumn}>Name</th>
-            <th>Points</th>
-            <th>Kills</th>
-            <th>Deaths</th>
-            <th>Flag Caps</th>
-            <th>Flag Pickups</th>
-            <th>Flag Defends</th>
-            <th>Flag Returns</th>
-            <th>Carrier Defs</th>
-            <th>Carrier Frags</th>
-            <th>Resistance Rune</th>
-            <th>Strength Rune</th>
-            <th>Haste Rune</th>
-            <th>Regeneration Rune</th>
-          </tr>
-          {stats.map(player => {
-            return (
-              <tr>
-                <td className={matchStyle.nameColumn}>{parseName(player.name)}</td>
-                <td>{player.stats.frags}</td>
-                <td>{player.stats.kills}</td>
-                <td>{player.stats.deaths}</td>
-                <td>{player.ctf.caps || 0}</td>
-                <td>{player.ctf.pickups || 0}</td>
-                <td>{player.ctf.defends || 0}</td>
-                <td>{player.ctf.returns || 0}</td>
-                <td>{player.ctf.carrier_defends || 0}</td>
-                <td>{player.ctf.carrier_frags || 0}</td>
-                <td>{Math.floor((player.ctf.runes[0] * 100.0) / duration)}%</td>
-                <td>{Math.floor((player.ctf.runes[1] * 100.0) / duration)}%</td>
-                <td>{Math.floor((player.ctf.runes[2] * 100.0) / duration)}%</td>
-                <td>{Math.floor((player.ctf.runes[3] * 100.0) / duration)}%</td>
-              </tr>
-            )
-          })}
-        </table>
+        <MatchStats columns={columns} data={matchStats.players} />
       </div>
     </Layout>
   )
