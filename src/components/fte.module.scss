@@ -118,7 +118,7 @@ canvas.emscripten {
   position: relative;
   display: flex;
   width: 100%;
-  height: 5px;
+  height: 10px;
   transition: 0.3s;
   background: rgba(0, 0, 0, 0.6);
   cursor: pointer;
@@ -127,8 +127,5 @@ canvas.emscripten {
   width: 0;
   background: orangered;
   transition: width .3s ease;
-}
-.videoPlayer:hover .videoProgress {
-  height: 10px;
 }
 
