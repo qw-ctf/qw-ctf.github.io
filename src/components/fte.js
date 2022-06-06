@@ -264,7 +264,7 @@ class FteComponent extends React.Component {
   }
 
   onMouseLeave(event) {
-    this.setState({ playerControlTimeout: 0 })
+    this.setState({ playerControlTimeout: Date.now() + 250 })
   }
 
   onTouchStart() {
@@ -280,6 +280,7 @@ class FteComponent extends React.Component {
     const playerWidth = this.playerRef.current.offsetWidth;
     const seekPosition = ((event.clientX - playerOffsetX) / playerWidth) * (this.props.duration + 10)
     window.Module.execute("demo_jump " + Math.floor(seekPosition))
+    this.setState({ playerControlTimeout: Date.now() + 3000 })
   }
 
   toggleSlowMotion(event) {
