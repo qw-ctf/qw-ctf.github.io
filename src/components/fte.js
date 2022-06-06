@@ -276,9 +276,10 @@ class FteComponent extends React.Component {
   }
 
   onDemoSeek(event) {
-    const offset = Math.floor((event.clientX / event.target.offsetParent.offsetWidth) * (this.props.duration + 10))
-    console.log(offset, event.clientX, event.target.offsetWidth, event)
-    window.Module.execute("demo_jump " + offset)
+    const playerOffsetX = this.playerRef.current.offsetLeft;
+    const playerWidth = this.playerRef.current.offsetWidth;
+    const seekPosition = ((event.clientX - playerOffsetX) / playerWidth) * (this.props.duration + 10)
+    window.Module.execute("demo_jump " + Math.floor(seekPosition))
   }
 
   toggleSlowMotion(event) {
