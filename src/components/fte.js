@@ -257,10 +257,13 @@ class FteComponent extends React.Component {
   }
 
   onMouseMove() {
-    this.setState({ playerControlTimeout: Date.now() + 3000 })
+    // Avoid spamming the react state
+    if (this.state.playerControlTimeout - Date.now() < 2500) {
+      this.setState({ playerControlTimeout: Date.now() + 3000 })
+    }
   }
 
-  onMouseOut() {
+  onMouseLeave(event) {
     this.setState({ playerControlTimeout: 0 })
   }
 
@@ -295,8 +298,8 @@ class FteComponent extends React.Component {
       <div
         ref={this.playerRef}
         onMouseMove={this.onMouseMove.bind(this)}
-        onMouseOut={this.onMouseOut.bind(this)}
-        onBlur={this.onMouseOut.bind(this)}
+        onMouseLeave={this.onMouseLeave.bind(this)}
+        onBlur={this.onMouseLeave.bind(this)}
         className={playerStyle.videoPlayer}
       >
         <canvas
