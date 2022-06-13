@@ -235,8 +235,9 @@ exports.createPages = async ({ graphql, actions }) => {
         "team": edge.node.players[i].team
       }
     }
+    const tags = edge.node.parent.directory.split("/")
     createPage({
-      path: `match/${edge.node.parent.directory}/${edge.node.fields.slug}`,
+      path: `match/${edge.node.fields.slug}`,
       component: matchTemplate,
       context: {
         demo: edge.node.demo,
@@ -249,6 +250,7 @@ exports.createPages = async ({ graphql, actions }) => {
         players: players,
         directory: edge.node.parent.directory,
         duration: edge.node.duration,
+        tags: tags,
         matchStats: prepareTableData(edge.node.duration, edge.node.players),
       },
     })

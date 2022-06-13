@@ -68,7 +68,7 @@ const MatchStats = ({ columns, data }) => {
   )
 }
 
-const MatchPage = ({ pageContext: { demo, map, fragstats, events, players, directory, duration, matchStats } }) => {
+const MatchPage = ({ pageContext: { demo, map, fragstats, events, players, directory, duration, tags, matchStats } }) => {
   const baseUrl = "https://media.githubusercontent.com/media/qw-ctf/matches/main/"
   const demoUrl = `${baseUrl}${directory}/${encodeURIComponent(demo)}.gz`
   const columns = React.useMemo(
@@ -211,6 +211,11 @@ const MatchPage = ({ pageContext: { demo, map, fragstats, events, players, direc
       <div className={matchStyle.matchInfo}>
         <div className={matchStyle.mapName}>
           {map.name.toUpperCase()}: {map.metadata.name} by {map.metadata.author || "Unknown"}
+        </div>
+        <div className={matchStyle.tags}>
+          {tags.map(tag => {
+            return <span className={matchStyle.tag}>#{tag}</span>
+          })}
         </div>
         <div className={matchStyle.share}>
           <FontAwesomeIcon icon={faShare} />

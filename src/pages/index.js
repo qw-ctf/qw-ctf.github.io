@@ -8,7 +8,7 @@ import * as matchStyle from "./matches.module.scss"
 
 const Match = ({ slug, image, team, map, directory }) => {
   return (
-    <a key={slug} href={"match/" + directory + "/" + slug}>
+    <a key={slug} href={`match/${slug}`}>
       <div className={matchStyle.container}>
         <GatsbyImage className={matchStyle.mapContainer} imgClassName={matchStyle.mapImage} image={image} objectFit="scale" alt="" />
         <div className={matchStyle.infoContainer}>
