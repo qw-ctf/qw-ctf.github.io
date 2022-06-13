@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Label, ReferenceDot, AreaChart, Area, XAxis, YAxis, linearGradient, ResponsiveContainer } from "recharts"
-import Tippy from "@tippy.js/react";
-import "tippy.js/dist/tippy.css";
+import Tippy from "@tippy.js/react"
+import "tippy.js/dist/tippy.css"
 import * as playerStyle from "./fte.module.scss"
 
 const colorRed = "#960000"
@@ -12,26 +12,39 @@ const colorBlueDark = "#1c1c4c"
 function createEventText(event, player) {
   switch (event.type) {
     case "pent":
-      return <div>
-        <span>{player.name} got the PENTAGRAM!</span><br/>
-        <span>Total: {event.count}</span>
-      </div>
+      return (
+        <div>
+          <span>{player.name} got the PENTAGRAM!</span>
+          <br />
+          <span>Total: {event.count}</span>
+        </div>
+      )
     case "quad":
-      return <div>
-        <span>{player.name} got the QUAD!</span><br/>
-        <span>Duration: {event.meta}%</span><br/>
-        <span>Total: {event.count}</span>
-      </div>
+      return (
+        <div>
+          <span>{player.name} got the QUAD!</span>
+          <br />
+          <span>Duration: {event.meta}%</span>
+          <br />
+          <span>Total: {event.count}</span>
+        </div>
+      )
     case "capture":
       const flagColor = player.team == "red" ? "BLUE" : "RED"
       const captureTime = Math.round((event.timestamp - event.meta + Number.EPSILON) * 100.0) / 100.0
-      return <div>
-        <span>{player.name} captured the {flagColor} flag!</span><br/>
-        <span>Took: {captureTime}s</span><br/>
-        <span>Total: {event.count}</span>
-      </div>
+      return (
+        <div>
+          <span>
+            {player.name} captured the {flagColor} flag!
+          </span>
+          <br />
+          <span>Took: {captureTime}s</span>
+          <br />
+          <span>Total: {event.count}</span>
+        </div>
+      )
     default:
-      return <div/>
+      return <div />
   }
 }
 
@@ -61,7 +74,6 @@ const EventLabel = props => {
     </Tippy>
   )
 }
-
 
 const FragChart = ({ frags, events, players, parent }) => {
   return (
