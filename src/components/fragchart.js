@@ -112,22 +112,31 @@ const FragChart = ({ frags, events, players, parent }) => {
           fill="url(#colorPv)"
         />
 
-        {events.map(event => {
-          const player = players[event.uid]
-          return (
-            <ReferenceDot
-              className={playerStyle.scoreEventDot}
-              key={`frag-event-${event.timestamp}`}
-              r={8}
-              x={event.timestamp}
-              y={event.y + 0.1}
-              ifOverflow={"extendDomain"}
-              label={<Label event={event} player={player} parent={parent} content={EventLabel} />}
-              fill={player.team == "red" ? colorRed : colorBlue}
-              stroke="#000"
-            />
-          )
-        })}
+        {events
+          .filter(event => {
+            const player = players[event.uid]
+            if (!player) console.warn("No player for event: ", event)
+            return player
+          })
+          .map(event => {
+            // This ^^ filter skips mismatches. Some cases the player is not part of KTX
+            // JSON stats, and some cases the name from mvdparser doesn't match so the uid
+            // link is not established. The latter part should be fixed.
+            const player = players[event.uid]
+            return (
+              <ReferenceDot
+                className={playerStyle.scoreEventDot}
+                key={`frag-event-${event.timestamp}`}
+                r={8}
+                x={event.timestamp}
+                y={event.y + 0.1}
+                ifOverflow={"extendDomain"}
+                label={<Label event={event} player={player} parent={parent} content={EventLabel} />}
+                fill={player.team == "red" ? colorRed : colorBlue}
+                stroke="#000"
+              />
+            )
+          })}
       </AreaChart>
     </ResponsiveContainer>
   )
