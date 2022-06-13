@@ -159,6 +159,19 @@ exports.createPages = async ({ graphql, actions }) => {
             demo
             map
             duration
+            fragstats {
+              timestamp
+              red
+              blue
+            }
+            events {
+              timestamp
+              uid
+              y
+              type
+              count
+              meta
+            }
             fields {
               slug
             }
@@ -168,6 +181,7 @@ exports.createPages = async ({ graphql, actions }) => {
               }
             }
             players {
+              uid
               ctf {
                 caps
                 carrier_defends
@@ -214,6 +228,13 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
   result.data.pages.edges.forEach(edge => {
+    players = {}
+    for (let i = 0; i < edge.node.players.length; i++) {
+      players[edge.node.players[i].uid] = {
+        "name": normalizeName(edge.node.players[i].name),
+        "team": edge.node.players[i].team
+      }
+    }
     createPage({
       path: `match/${edge.node.parent.directory}/${edge.node.fields.slug}`,
       component: matchTemplate,
@@ -223,6 +244,9 @@ exports.createPages = async ({ graphql, actions }) => {
           name: edge.node.map,
           metadata: mapMetadata[edge.node.map],
         },
+        fragstats: edge.node.fragstats,
+        events: edge.node.events,
+        players: players,
         directory: edge.node.parent.directory,
         duration: edge.node.duration,
         matchStats: prepareTableData(edge.node.duration, edge.node.players),

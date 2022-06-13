@@ -4,6 +4,7 @@ import * as playerStyle from "./fte.module.scss"
 import screenfull from "./screenfull"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlay, faPause, faVolumeLow, faVolumeHigh, faVolumeXmark, faVolumeOff, faExpand, faGauge } from "@fortawesome/free-solid-svg-icons"
+import FragChart from "../components/fragchart"
 
 function secondsToString(duration) {
   const durationMinutes = Math.floor(duration / 60).toLocaleString("en-US", {
@@ -141,6 +142,7 @@ class FteComponent extends React.Component {
       this.setState({ gametime: window.Module.gametime() })
     }
     if (this.state.playerControlTimeout !== 0 && this.state.playerControlTimeout < Date.now()) {
+      window.Module.execute("viewsize 100")
       this.setState({ playerControlTimeout: 0 })
     }
     if (this.state.firstRefresh && this.state.gametime > 0) {
@@ -260,6 +262,7 @@ class FteComponent extends React.Component {
     // Avoid spamming the react state
     if (this.state.playerControlTimeout - Date.now() < 2500) {
       this.setState({ playerControlTimeout: Date.now() + 3000 })
+      window.Module.execute("viewsize 120")
     }
   }
 
@@ -316,36 +319,39 @@ class FteComponent extends React.Component {
           }}
         />
         <div className={this.state.playerControlTimeout ? playerStyle.playerControlsShow : playerStyle.playerControls}>
-          <div className={playerStyle.videoProgress} onClick={this.onDemoSeek.bind(this)}>
-            <div className={playerStyle.videoProgressFilled} style={{ width: gametimeProgress }}></div>
+          <FragChart frags={this.props.fragstats} events={this.props.events} players={this.props.players} parent={this.playerRef} />
+          <div className={playerStyle.playerControlsShowInner}>
+            <div className={playerStyle.videoProgress} onClick={this.onDemoSeek.bind(this)}>
+              <div className={playerStyle.videoProgressFilled} style={{ width: gametimeProgress }}></div>
+            </div>
+            <button className={playerStyle.playButton} title="Play" onClick={this.togglePlay.bind(this)}>
+              <FontAwesomeIcon icon={this.state.playing ? faPause : faPlay} />
+            </button>
+            <button className={playerStyle.volumeButton} title="Volume" onClick={this.toggleMuted.bind(this)}>
+              <FontAwesomeIcon icon={this.state.volumeMuted ? faVolumeXmark : this.state.volumeIcon} />
+            </button>
+            <input
+              type="range"
+              className={playerStyle.volumeRange}
+              min="0"
+              max="1"
+              step="0.01"
+              value={this.state.volume}
+              disabled={this.state.volumeMuted}
+              onChange={this.onVolumeChange.bind(this)}
+            />
+            <div className={playerStyle.time}>
+              <span id="demotime">
+                {gametime} / {this.duration}
+              </span>
+            </div>
+            <button className={playerStyle.speedButton} onClick={this.toggleSlowMotion.bind(this)} style={{ color: "white" }}>
+              <FontAwesomeIcon icon={faGauge} />
+            </button>
+            <button className={playerStyle.fullscreenButton} onClick={this.toggleFullscreen.bind(this)} style={{ color: "white" }}>
+              <FontAwesomeIcon icon={faExpand} />
+            </button>
           </div>
-          <button className={playerStyle.playButton} title="Play" onClick={this.togglePlay.bind(this)}>
-            <FontAwesomeIcon icon={this.state.playing ? faPause : faPlay} />
-          </button>
-          <button className={playerStyle.volumeButton} title="Volume" onClick={this.toggleMuted.bind(this)}>
-            <FontAwesomeIcon icon={this.state.volumeMuted ? faVolumeXmark : this.state.volumeIcon} />
-          </button>
-          <input
-            type="range"
-            className={playerStyle.volumeRange}
-            min="0"
-            max="1"
-            step="0.01"
-            value={this.state.volume}
-            disabled={this.state.volumeMuted}
-            onChange={this.onVolumeChange.bind(this)}
-          />
-          <div className={playerStyle.time}>
-            <span id="demotime">
-              {gametime} / {this.duration}
-            </span>
-          </div>
-          <button className={playerStyle.speedButton} onClick={this.toggleSlowMotion.bind(this)} style={{ color: "white" }}>
-            <FontAwesomeIcon icon={faGauge} />
-          </button>
-          <button className={playerStyle.fullscreenButton} onClick={this.toggleFullscreen.bind(this)} style={{ color: "white" }}>
-            <FontAwesomeIcon icon={faExpand} />
-          </button>
         </div>
       </div>
     )

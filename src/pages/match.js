@@ -68,7 +68,7 @@ const MatchStats = ({ columns, data }) => {
   )
 }
 
-const MatchPage = ({ pageContext: { demo, map, directory, duration, stats, matchStats } }) => {
+const MatchPage = ({ pageContext: { demo, map, fragstats, events, players, directory, duration, matchStats } }) => {
   const baseUrl = "https://media.githubusercontent.com/media/qw-ctf/matches/main/"
   const demoUrl = `${baseUrl}${directory}/${encodeURIComponent(demo)}.gz`
   const columns = React.useMemo(
@@ -206,7 +206,7 @@ const MatchPage = ({ pageContext: { demo, map, directory, duration, stats, match
       {iOS() ? (
         "iOS browser performance is really bad, please fix, or use Desktop or Android"
       ) : (
-        <FteComponent demo={demo} map={map.name} directory={directory} duration={duration} />
+        <FteComponent demo={demo} map={map.name} directory={directory} duration={duration} fragstats={fragstats} events={events} players={players} />
       )}
       <div className={matchStyle.matchInfo}>
         <div className={matchStyle.mapName}>
