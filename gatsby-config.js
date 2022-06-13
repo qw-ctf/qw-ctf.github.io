@@ -37,6 +37,7 @@ module.exports = {
       options: {
         name: `matches`,
         path: `${__dirname}/src/matches`,
+        ignore: [`**/*\.extra\.json`]
       },
     },
     {
