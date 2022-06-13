@@ -7,6 +7,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Setup Python 3.x
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
       - name: Checkout QTube
         uses: actions/checkout@v3
         with:
@@ -37,9 +42,10 @@ jobs:
           path: matchstats
           lfs: true
 
-      - name: Link stuff
+      - name: Prepare matchstats files
         run: |
           ln -s `pwd`/matchstats src/matches
+          find src/matches/ -type f -name '*.json' -not -name '*.extra.json' -exec python patch-stats.py {} \;
 #         ln -s fragfile/fragfile.dat static/data/fragfile.dat
 
       - name: Deploy QTube
