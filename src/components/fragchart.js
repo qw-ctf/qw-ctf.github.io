@@ -112,7 +112,7 @@ const FragChart = ({ frags, events, players, parent }) => {
           fill="url(#colorPv)"
         />
 
-        {events
+        {events && events
           .filter(event => {
             const player = players[event.uid]
             if (!player) console.warn("No player for event: ", event)
