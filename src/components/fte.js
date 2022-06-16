@@ -101,6 +101,7 @@ class FteComponent extends React.Component {
         "id1/textures/models/end3.mdl_0.png": withPrefix("/data/id1/textures/models/end3_0.png"),
         "id1/textures/models/end4.mdl_0.png": withPrefix("/data/id1/textures/models/end4_0.png"),
         "qw/fragfile.dat": withPrefix("/data/fragfile.dat"),
+        "ctf/fragfile.dat": withPrefix("/data/fragfile.dat"),
         "qw/match.mvd.gz": demoUrl,
         ... mapContent
       },
