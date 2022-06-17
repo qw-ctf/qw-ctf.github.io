@@ -68,47 +68,51 @@ class FteComponent extends React.Component {
           [targetMapLit]: `https://media.githubusercontent.com/media/qw-ctf/lits/main/jscolour/maps/${this.props.map}.lit`,
         }
 
+    const assets = {
+      "default.fmf": withPrefix("/data/default.fmf"),
+      "id1/config.cfg": withPrefix("/data/id1/config.cfg"),
+      "id1/id1_bmodels.pk3": withPrefix("/data/id1/id1_bmodels.pk3"),
+      "id1/id1_skins.pk3": withPrefix("/data/id1/id1_skins.pk3"),
+      "id1/id1_progs.pk3": withPrefix("/data/id1/id1_progs.pk3"),
+      "id1/qw_progs.pk3": withPrefix("/data/id1/qw_progs.pk3"),
+      "id1/gfx.pk3": withPrefix("/data/id1/gfx.pk3"),
+      "id1/sound.pk3": withPrefix("/data/id1/sound.pk3"),
+      "id1/textures.pk3": withPrefix("/data/id1/textures.pk3"),
+      "id1/plaguespack_fte.pk3": withPrefix("/data/id1/plaguespack_fte.pk3"),
+      "id1/tracker.pk3": withPrefix("/data/id1/tracker.pk3"),
+      "id1/particles/blood.cfg": withPrefix("/data/id1/particles/blood.cfg"),
+      "id1/particles/torch.cfg": withPrefix("/data/id1/particles/torch.cfg"),
+      "id1/particles/flame.cfg": withPrefix("/data/id1/particles/flame.cfg"),
+      "id1/particles/grenade.cfg": withPrefix("/data/id1/particles/grenade.cfg"),
+      "id1/particles/rocket.cfg": withPrefix("/data/id1/particles/rocket.cfg"),
+      "id1/particles/explosion.cfg": withPrefix("/data/id1/particles/explosion.cfg"),
+      "id1/particles/bubble-trail.cfg": withPrefix("/data/id1/particles/bubble-trail.cfg"),
+      "id1/particles/teleport.cfg": withPrefix("/data/id1/particles/teleport.cfg"),
+      "id1/particles/runes.cfg": withPrefix("/data/id1/particles/runes.cfg"),
+      "id1/textures/particles/flame.tga": withPrefix("/data/id1/textures/particles/flame.tga"),
+      "id1/textures/particles/rfire.tga": withPrefix("/data/id1/textures/particles/rfire.tga"),
+      "id1/textures/particles/generic.png": withPrefix("/data/id1/textures/particles/generic.png"),
+      "id1/textures/particles/smoke.tga": withPrefix("/data/id1/textures/particles/smoke.tga"),
+      "id1/textures/particles/bubble.png": withPrefix("/data/id1/textures/particles/bubble.png"),
+      "id1/textures/#lava1_luma.png": withPrefix("/data/tex/lava1_luma.png"),
+      "id1/textures/#lava1.png": withPrefix("/data/tex/lava1.png"),
+      "id1/textures/#teleport.png": withPrefix("/data/tex/teleport.png"),
+      "id1/gfx/ranking.png": withPrefix("/data/tex/ranking.png"),
+      "id1/textures/models/end1.mdl_0.png": withPrefix("/data/id1/textures/models/end1_0.png"),
+      "id1/textures/models/end2.mdl_0.png": withPrefix("/data/id1/textures/models/end2_0.png"),
+      "id1/textures/models/end3.mdl_0.png": withPrefix("/data/id1/textures/models/end3_0.png"),
+      "id1/textures/models/end4.mdl_0.png": withPrefix("/data/id1/textures/models/end4_0.png"),
+      "qw/fragfile.dat": withPrefix("/data/fragfile.dat"),
+      "ctf/fragfile.dat": withPrefix("/data/fragfile.dat"),
+      "qw/match.mvd.gz": demoUrl,
+      ...mapContent,
+    }
+
+    this.setState({ numAssets: Object.keys(assets).length })
+
     window.Module = {
       canvas: this.canvasRef.current,
-      files: {
-        "default.fmf": withPrefix("/data/default.fmf"),
-        "id1/config.cfg": withPrefix("/data/id1/config.cfg"),
-        "id1/id1_bmodels.pk3": withPrefix("/data/id1/id1_bmodels.pk3"),
-        "id1/id1_skins.pk3": withPrefix("/data/id1/id1_skins.pk3"),
-        "id1/id1_progs.pk3": withPrefix("/data/id1/id1_progs.pk3"),
-        "id1/qw_progs.pk3": withPrefix("/data/id1/qw_progs.pk3"),
-        "id1/gfx.pk3": withPrefix("/data/id1/gfx.pk3"),
-        "id1/sound.pk3": withPrefix("/data/id1/sound.pk3"),
-        "id1/textures.pk3": withPrefix("/data/id1/textures.pk3"),
-        "id1/plaguespack_fte.pk3": withPrefix("/data/id1/plaguespack_fte.pk3"),
-        "id1/tracker.pk3": withPrefix("/data/id1/tracker.pk3"),
-        "id1/particles/blood.cfg": withPrefix("/data/id1/particles/blood.cfg"),
-        "id1/particles/torch.cfg": withPrefix("/data/id1/particles/torch.cfg"),
-        "id1/particles/flame.cfg": withPrefix("/data/id1/particles/flame.cfg"),
-        "id1/particles/grenade.cfg": withPrefix("/data/id1/particles/grenade.cfg"),
-        "id1/particles/rocket.cfg": withPrefix("/data/id1/particles/rocket.cfg"),
-        "id1/particles/explosion.cfg": withPrefix("/data/id1/particles/explosion.cfg"),
-        "id1/particles/bubble-trail.cfg": withPrefix("/data/id1/particles/bubble-trail.cfg"),
-        "id1/particles/teleport.cfg": withPrefix("/data/id1/particles/teleport.cfg"),
-        "id1/particles/runes.cfg": withPrefix("/data/id1/particles/runes.cfg"),
-        "id1/textures/particles/flame.tga": withPrefix("/data/id1/textures/particles/flame.tga"),
-        "id1/textures/particles/rfire.tga": withPrefix("/data/id1/textures/particles/rfire.tga"),
-        "id1/textures/particles/generic.png": withPrefix("/data/id1/textures/particles/generic.png"),
-        "id1/textures/particles/smoke.tga": withPrefix("/data/id1/textures/particles/smoke.tga"),
-        "id1/textures/particles/bubble.png": withPrefix("/data/id1/textures/particles/bubble.png"),
-        "id1/textures/#lava1_luma.png": withPrefix("/data/tex/lava1_luma.png"),
-        "id1/textures/#lava1.png": withPrefix("/data/tex/lava1.png"),
-        "id1/textures/#teleport.png": withPrefix("/data/tex/teleport.png"),
-        "id1/gfx/ranking.png": withPrefix("/data/tex/ranking.png"),
-        "id1/textures/models/end1.mdl_0.png": withPrefix("/data/id1/textures/models/end1_0.png"),
-        "id1/textures/models/end2.mdl_0.png": withPrefix("/data/id1/textures/models/end2_0.png"),
-        "id1/textures/models/end3.mdl_0.png": withPrefix("/data/id1/textures/models/end3_0.png"),
-        "id1/textures/models/end4.mdl_0.png": withPrefix("/data/id1/textures/models/end4_0.png"),
-        "qw/fragfile.dat": withPrefix("/data/fragfile.dat"),
-        "ctf/fragfile.dat": withPrefix("/data/fragfile.dat"),
-        "qw/match.mvd.gz": demoUrl,
-        ...mapContent,
-      },
+      files: assets,
       setStatus: this.updateLoadProgress.bind(this),
     }
 
@@ -312,7 +316,7 @@ class FteComponent extends React.Component {
   render() {
     const gametime = secondsToString(this.state.gametime)
     const gametimeProgress = ((this.state.gametime / this.props.duration) * 100.0).toString() + "%"
-    const loadProgress = (window.Module ? this.state.loadProgress / Object.keys(window.Module.files).length : 0) * 100.0
+    const loadProgress = this.state.loadProgress / this.state.numAssets
     return (
       <div
         ref={this.playerRef}
