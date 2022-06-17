@@ -1,10 +1,12 @@
 import * as React from "react"
+import { StaticImage } from "gatsby-plugin-image"
 import { withPrefix } from "gatsby"
 import * as playerStyle from "./fte.module.scss"
 import screenfull from "./screenfull"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlay, faPause, faVolumeLow, faVolumeHigh, faVolumeXmark, faVolumeOff, faExpand, faGauge } from "@fortawesome/free-solid-svg-icons"
 import FragChart from "../components/fragchart"
+import ProgressBar from "./progressbar"
 
 function secondsToString(duration) {
   const durationMinutes = Math.floor(duration / 60).toLocaleString("en-US", {
@@ -22,6 +24,7 @@ const easingTime = 1500.0
 
 class FteComponent extends React.Component {
   state = {
+    loadProgress: 0,
     demo: null,
     refreshInterval: null,
     gametime: 0,
@@ -46,7 +49,6 @@ class FteComponent extends React.Component {
     this.playerRef = React.createRef()
     this.playing = true
     this.playbackSpeed = 100
-
     this.duration = secondsToString(this.props.duration)
   }
 
@@ -56,13 +58,15 @@ class FteComponent extends React.Component {
     const targetMapLit = "id1/maps/" + this.props.map + ".lit"
     const demoUrl = `${baseUrl}${this.props.directory}/${encodeURIComponent(this.props.demo)}.gz`
 
-    const mapContent = /(dm[1-7]|e[1-4]m[1-8])/.test(this.props.map) ? {
-      [targetMapBsp]: `https://raw.githubusercontent.com/fzwoch/quake_map_source/master/bsp/${this.props.map}.bsp`,
-      [targetMapLit]: `https://media.githubusercontent.com/media/qw-ctf/lits/main/jscolour/id1_gpl/${this.props.map}.lit`,
-    } : {
-      [targetMapBsp]: `https://raw.githubusercontent.com/nQuake/distfiles/master/sv-maps/qw/maps/${this.props.map}.bsp`,
-      [targetMapLit]: `https://media.githubusercontent.com/media/qw-ctf/lits/main/jscolour/maps/${this.props.map}.lit`,
-    }
+    const mapContent = /(dm[1-7]|e[1-4]m[1-8])/.test(this.props.map)
+      ? {
+          [targetMapBsp]: `https://raw.githubusercontent.com/fzwoch/quake_map_source/master/bsp/${this.props.map}.bsp`,
+          [targetMapLit]: `https://media.githubusercontent.com/media/qw-ctf/lits/main/jscolour/id1_gpl/${this.props.map}.lit`,
+        }
+      : {
+          [targetMapBsp]: `https://raw.githubusercontent.com/nQuake/distfiles/master/sv-maps/qw/maps/${this.props.map}.bsp`,
+          [targetMapLit]: `https://media.githubusercontent.com/media/qw-ctf/lits/main/jscolour/maps/${this.props.map}.lit`,
+        }
 
     window.Module = {
       canvas: this.canvasRef.current,
@@ -103,8 +107,9 @@ class FteComponent extends React.Component {
         "qw/fragfile.dat": withPrefix("/data/fragfile.dat"),
         "ctf/fragfile.dat": withPrefix("/data/fragfile.dat"),
         "qw/match.mvd.gz": demoUrl,
-        ... mapContent
+        ...mapContent,
       },
+      setStatus: this.updateLoadProgress.bind(this),
     }
 
     const fteScript = document.createElement("script")
@@ -113,7 +118,7 @@ class FteComponent extends React.Component {
     document.head.appendChild(fteScript)
 
     screenfull.on("change", this.onResize.bind(this))
-    window.addEventListener("resize", this.onResize.bind(this));
+    window.addEventListener("resize", this.onResize.bind(this))
 
     const parts = window.location.hash.substring(1).split("&")
     for (let i = 0; i < parts.length; i++) {
@@ -136,6 +141,13 @@ class FteComponent extends React.Component {
     }
 
     setInterval(this.onFteRefresh.bind(this), 250)
+  }
+
+  updateLoadProgress(text) {
+    const found = text.match(/.+ [(]([^/]+)\/([^)]+)[)]/)
+    if (found && found.length === 3 && found[1] === found[2]) {
+      this.setState({ loadProgress: this.state.loadProgress + 1 })
+    }
   }
 
   onFteRefresh() {
@@ -220,7 +232,7 @@ class FteComponent extends React.Component {
   onResize() {
     window.onresize()
 
-    const width = (window.screen.orientation.angle == 0) ? this.playerRef.current.clientWidth : this.playerRef.current.clientHeight
+    const width = window.screen.orientation.angle == 0 ? this.playerRef.current.clientWidth : this.playerRef.current.clientHeight
 
     // Arbitrary scaling ratio based on 4 * DPI for 4k fullscreen.
     window.Module.execute("vid_conautoscale " + Math.ceil(4.0 * window.devicePixelRatio * (width / 3840.0)).toString())
@@ -280,8 +292,8 @@ class FteComponent extends React.Component {
   }
 
   onDemoSeek(event) {
-    const playerOffsetX = this.playerRef.current.offsetLeft;
-    const playerWidth = this.playerRef.current.offsetWidth;
+    const playerOffsetX = this.playerRef.current.offsetLeft
+    const playerWidth = this.playerRef.current.offsetWidth
     const seekPosition = ((event.clientX - playerOffsetX) / playerWidth) * (this.props.duration + 10)
     window.Module.execute("demo_jump " + Math.floor(seekPosition))
     this.setState({ playerControlTimeout: Date.now() + 3000 })
@@ -300,6 +312,7 @@ class FteComponent extends React.Component {
   render() {
     const gametime = secondsToString(this.state.gametime)
     const gametimeProgress = ((this.state.gametime / this.props.duration) * 100.0).toString() + "%"
+    const loadProgress = (window.Module ? this.state.loadProgress / Object.keys(window.Module.files).length : 0) * 100.0
     return (
       <div
         ref={this.playerRef}
@@ -308,51 +321,62 @@ class FteComponent extends React.Component {
         onBlur={this.onMouseLeave.bind(this)}
         className={playerStyle.videoPlayer}
       >
-        <canvas
-          id="canvas"
-          ref={this.canvasRef}
-          className={playerStyle.emscripten}
-          onClick={this.onCanvasClick.bind(this)}
-          onTouchStart={this.onTouchStart.bind(this)}
-          onTouchEnd={this.onTouchEnd.bind(this)}
-          style={{
-            cursor: this.state.playerControlTimeout ? "auto" : "none",
-          }}
-        />
-        <div className={this.state.playerControlTimeout ? playerStyle.playerControlsShow : playerStyle.playerControls}>
-          <FragChart frags={this.props.fragstats} events={this.props.events} players={this.props.players} parent={this.playerRef} />
-          <div className={playerStyle.playerControlsShowInner}>
-            <div className={playerStyle.videoProgress} onClick={this.onDemoSeek.bind(this)}>
-              <div className={playerStyle.videoProgressFilled} style={{ width: gametimeProgress }}></div>
-            </div>
-            <button className={playerStyle.playButton} title="Play" onClick={this.togglePlay.bind(this)}>
-              <FontAwesomeIcon icon={this.state.playing ? faPause : faPlay} />
-            </button>
-            <button className={playerStyle.volumeButton} title="Volume" onClick={this.toggleMuted.bind(this)}>
-              <FontAwesomeIcon icon={this.state.volumeMuted ? faVolumeXmark : this.state.volumeIcon} />
-            </button>
-            <input
-              type="range"
-              className={playerStyle.volumeRange}
-              min="0"
-              max="1"
-              step="0.01"
-              value={this.state.volume}
-              disabled={this.state.volumeMuted}
-              onChange={this.onVolumeChange.bind(this)}
-            />
-            <div className={playerStyle.time}>
-              <span id="demotime">
-                {gametime} / {this.duration}
-              </span>
-            </div>
-            <button className={playerStyle.speedButton} onClick={this.toggleSlowMotion.bind(this)} style={{ color: "white" }}>
-              <FontAwesomeIcon icon={faGauge} />
-            </button>
-            <button className={playerStyle.fullscreenButton} onClick={this.toggleFullscreen.bind(this)} style={{ color: "white" }}>
-              <FontAwesomeIcon icon={faExpand} />
-            </button>
+        <div className={playerStyle.curtain}>
+          <div class={`${this.state.firstRefresh ? playerStyle.curtainLeft : playerStyle.curtainLeftOpen}`}>
+            <StaticImage placeholder="none" loading="eager" quality={90} className={playerStyle.blueHammer} src="../images/blue-hammer.png" />
           </div>
+          <div class={`${this.state.firstRefresh ? playerStyle.curtainRight : playerStyle.curtainRightOpen}`}>
+            <StaticImage placeholder="none" loading="eager" quality={90} className={playerStyle.redFlash} src="../images/red-flash.png" />
+          </div>
+          <canvas
+            id="canvas"
+            ref={this.canvasRef}
+            className={playerStyle.emscripten}
+            onClick={this.onCanvasClick.bind(this)}
+            onTouchStart={this.onTouchStart.bind(this)}
+            onTouchEnd={this.onTouchEnd.bind(this)}
+            style={{
+              cursor: this.state.playerControlTimeout ? "auto" : "none",
+            }}
+          />
+          <div className={this.state.playerControlTimeout ? playerStyle.playerControlsShow : playerStyle.playerControls}>
+            <FragChart frags={this.props.fragstats} events={this.props.events} players={this.props.players} parent={this.playerRef} />
+            <div className={playerStyle.playerControlsShowInner}>
+              <div className={playerStyle.videoProgress} onClick={this.onDemoSeek.bind(this)}>
+                <div className={playerStyle.videoProgressFilled} style={{ width: gametimeProgress }}></div>
+              </div>
+              <button className={playerStyle.playButton} title="Play" onClick={this.togglePlay.bind(this)}>
+                <FontAwesomeIcon icon={this.state.playing ? faPause : faPlay} />
+              </button>
+              <button className={playerStyle.volumeButton} title="Volume" onClick={this.toggleMuted.bind(this)}>
+                <FontAwesomeIcon icon={this.state.volumeMuted ? faVolumeXmark : this.state.volumeIcon} />
+              </button>
+              <input
+                type="range"
+                className={playerStyle.volumeRange}
+                min="0"
+                max="1"
+                step="0.01"
+                value={this.state.volume}
+                disabled={this.state.volumeMuted}
+                onChange={this.onVolumeChange.bind(this)}
+              />
+              <div className={playerStyle.time}>
+                <span id="demotime">
+                  {gametime} / {this.duration}
+                </span>
+              </div>
+              <button className={playerStyle.speedButton} onClick={this.toggleSlowMotion.bind(this)} style={{ color: "white" }}>
+                <FontAwesomeIcon icon={faGauge} />
+              </button>
+              <button className={playerStyle.fullscreenButton} onClick={this.toggleFullscreen.bind(this)} style={{ color: "white" }}>
+                <FontAwesomeIcon icon={faExpand} />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className={playerStyle.progressWrapper} style={{ opacity: this.state.firstRefresh ? 1 : 0 }}>
+          <ProgressBar bgcolor={"#ff0000"} completed={loadProgress} />
         </div>
       </div>
     )
