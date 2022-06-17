@@ -316,7 +316,7 @@ class FteComponent extends React.Component {
   render() {
     const gametime = secondsToString(this.state.gametime)
     const gametimeProgress = ((this.state.gametime / this.props.duration) * 100.0).toString() + "%"
-    const loadProgress = this.state.loadProgress / this.state.numAssets
+    const loadProgress = this.state.numAssets ? Math.round(this.state.loadProgress / this.state.numAssets) : 0
     return (
       <div
         ref={this.playerRef}
@@ -380,7 +380,7 @@ class FteComponent extends React.Component {
           </div>
         </div>
         <div className={playerStyle.progressWrapper} style={{ opacity: this.state.firstRefresh ? 1 : 0 }}>
-          <ProgressBar bgcolor={"#ff0000"} completed={loadProgress} />
+          <ProgressBar bgcolor={"#ff0000"} completed={loadProgress * 100} />
         </div>
       </div>
     )
