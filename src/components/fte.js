@@ -102,6 +102,10 @@ class FteComponent extends React.Component {
       "id1/textures/models/end2.mdl_0.png": withPrefix("/data/id1/textures/models/end2_0.png"),
       "id1/textures/models/end3.mdl_0.png": withPrefix("/data/id1/textures/models/end3_0.png"),
       "id1/textures/models/end4.mdl_0.png": withPrefix("/data/id1/textures/models/end4_0.png"),
+      "id1/textures/wad/sb_sigil1.png": withPrefix("/data/id1/textures/wad/sb_sigil1.png"),
+      "id1/textures/wad/sb_sigil2.png": withPrefix("/data/id1/textures/wad/sb_sigil2.png"),
+      "id1/textures/wad/sb_sigil3.png": withPrefix("/data/id1/textures/wad/sb_sigil3.png"),
+      "id1/textures/wad/sb_sigil4.png": withPrefix("/data/id1/textures/wad/sb_sigil4.png"),
       "qw/fragfile.dat": withPrefix("/data/fragfile.dat"),
       "ctf/fragfile.dat": withPrefix("/data/fragfile.dat"),
       "qw/match.mvd.gz": demoUrl,
@@ -380,7 +384,7 @@ class FteComponent extends React.Component {
           </div>
         </div>
         <div className={playerStyle.progressWrapper} style={{ opacity: this.state.firstRefresh ? 1 : 0 }}>
-          <ProgressBar bgcolor={"#ff0000"} completed={loadProgress * 100} />
+          <ProgressBar completed={loadProgress * 100} />
         </div>
       </div>
     )
