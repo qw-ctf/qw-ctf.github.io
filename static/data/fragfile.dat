@@ -563,3 +563,8 @@
 
 #DEFINE FLAG_ALERT	X_FLAG_ASSIST	" עופץעמוה the ÒÅÄ flag!"     // returned the RED flag!
 #DEFINE FLAG_ALERT	X_FLAG_ASSIST	" עופץעמוה the ÂÌÕÅ flag!" // returned the BLUE flag!
+
+#DEFINE RUNE_MSG  X_RUNE_RES "You got the עוףיףפבמדו rune" // You got the resistance rune
+#DEFINE RUNE_MSG  X_RUNE_STR "You got the ףפעומחפט rune" // You got the strength rune
+#DEFINE RUNE_MSG  X_RUNE_HST "You got the טבףפו rune" // You got the haste rune
+#DEFINE RUNE_MSG  X_RUNE_REG "You got the עוחומועבפיןמ rune" // You got the regeneration rune
