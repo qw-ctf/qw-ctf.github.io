@@ -2,11 +2,13 @@ import * as React from "react"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import FteComponent from "../components/fte"
+import ShareMatch from "../components/sharematch"
 import { window, document } from "browser-monads"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faShare, faDownload } from "@fortawesome/free-solid-svg-icons"
 import * as matchStyle from "./match.module.scss"
 import { useTable, useSortBy } from "react-table"
+import Tippy from "@tippy.js/react"
 
 function iOS() {
   return (
@@ -217,10 +219,19 @@ const MatchPage = ({ pageContext: { demo, map, fragstats, events, players, direc
             return <span className={matchStyle.tag}>#{tag}</span>
           })}
         </div>
-        <div className={matchStyle.share}>
-          <FontAwesomeIcon icon={faShare} />
-          <span className={matchStyle.shareText}>Share</span>
-        </div>
+        <Tippy
+          zIndex={9999}
+          interactive
+          trigger="click"
+          placement="bottom"
+          maxWidth="none"
+          content={<ShareMatch players={players} duration={duration} />}
+        >
+          <div className={matchStyle.share}>
+            <FontAwesomeIcon icon={faShare} />
+            <span className={matchStyle.shareText}>Share</span>
+          </div>
+        </Tippy>
         <div className={matchStyle.download}>
           <a href={demoUrl}>
             <FontAwesomeIcon icon={faDownload} />
