@@ -16,9 +16,7 @@
   height: 0.7vw;
   border-radius: 0.25vw;
   background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
-  transition: 0.4s linear;
-  transition-property: width, background-color;
+  transition: all 1.5s linear;
   background-color: #efa51d;
   background-image: linear-gradient(top, #00ff26, #ae00ff);
-  transition: width 1s ease;
 }
