@@ -96,6 +96,7 @@ class FteComponent extends React.Component {
       "id1/particles/runes.cfg": `${assetsUrl}/particles/runes.cfg`,
       "id1/particles/teleport.cfg": `${assetsUrl}/particles/teleport.cfg`,
       "id1/particles/torch.cfg": `${assetsUrl}/particles/torch.cfg`,
+      "id1/particles/particlefont.png": `${assetsUrl}/particles/particlefont.png`,
       "id1/progs/armor.mdl": `${assetsUrl}/progs/armor.mdl`,
       "id1/progs/backpack.mdl": `${assetsUrl}/progs/backpack.mdl`,
       "id1/progs/bit.mdl": `${assetsUrl}/progs/bit.mdl`,
