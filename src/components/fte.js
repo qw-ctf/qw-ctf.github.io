@@ -58,6 +58,8 @@ class FteComponent extends React.Component {
     const targetMapBsp = "id1/maps/" + this.props.map + ".bsp"
     const targetMapLit = "id1/maps/" + this.props.map + ".lit"
     const demoUrl = `${baseUrl}/${this.props.directory}/${encodeURIComponent(this.props.demo)}.gz`
+    
+    const demoMountPath = /.+.mvd/.test(this.props.demo) ? "qw/match.mvd.gz" : "id1/match.dem.gz"
 
     const mapContent = /(dm[1-7]|e[1-4]m[1-8])/.test(this.props.map)
       ? {
@@ -498,7 +500,7 @@ class FteComponent extends React.Component {
       "id1/textures/wad/sb_suit.png": `${assetsUrl}/textures/wad/sb_suit.png`,
       "qw/fragfile.dat": withPrefix("/data/fragfile.dat"),
       "ctf/fragfile.dat": withPrefix("/data/fragfile.dat"),
-      "qw/match.mvd.gz": demoUrl,
+      [demoMountPath]: demoUrl,
       ...mapContent,
     }
 
@@ -558,6 +560,11 @@ class FteComponent extends React.Component {
     }
     if (this.state.firstRefresh && this.state.gametime > 0) {
       this.onResize()
+
+      // Workaround for not being able to bind an alias to TAB key for RQ demos
+      if (/.+.dem/.test(this.props.demo)) {
+        window.Module.execute("bind tab +showteamscores")
+      }
 
       if (this.state.initialPlayer) {
         window.Module.execute("cl_autotrack off")
