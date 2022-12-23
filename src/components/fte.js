@@ -66,6 +66,10 @@ class FteComponent extends React.Component {
           [targetMapBsp]: `https://raw.githubusercontent.com/fzwoch/quake_map_source/master/bsp/${this.props.map}.bsp`,
           [targetMapLit]: `https://media.githubusercontent.com/media/qw-ctf/lits/main/jscolour/id1_gpl/${this.props.map}.lit`,
         }
+      : this.props.map == "mammoth" ?
+        {
+          [targetMapBsp]: `https://media.githubusercontent.com/media/qw-ctf/qtube-maps/main/mammoth.bsp`
+        }
       : {
           [targetMapBsp]: `https://raw.githubusercontent.com/nQuake/distfiles/master/sv-maps/qw/maps/${this.props.map}.bsp`,
           [targetMapLit]: `https://media.githubusercontent.com/media/qw-ctf/lits/main/jscolour/maps/${this.props.map}.lit`,
